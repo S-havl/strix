@@ -1,0 +1,16 @@
+[bits 16]
+[org 0x1000]
+
+boot_drive: db 0
+kernel_addr: 0x2000
+
+stage2_start:
+    cli
+    mov ax, 0x1000
+    mov ds, ax
+    mov es, ax
+    mov ss, ax
+    mov sp, 0x9C00
+    sti
+
+    mov [boot_drive], dl
