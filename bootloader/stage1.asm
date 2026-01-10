@@ -6,11 +6,14 @@ stage2_addr: dw 0x1000
 
 _start:
     cli
+    cld
+
     xor ax, ax
     mov ds, ax
     mov es, ax
     mov ss, ax
     mov sp, 0x7C00
+
     sti
 
     mov [boot_drive], dl
