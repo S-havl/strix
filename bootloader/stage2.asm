@@ -14,6 +14,5 @@ stage2_start:
     mov ss, ax
     mov sp, 0x9C00
 
-    sti
-
     mov [boot_drive], dl
+
