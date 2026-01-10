@@ -16,3 +16,16 @@ stage2_start:
 
     mov [boot_drive], dl
 
+enable_a20:
+
+gdt_start:
+
+gdt_null:
+
+gdt_code:
+
+gdt_data:
+
+gdt_end:
+
+gdt_descriptor:

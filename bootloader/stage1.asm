@@ -1,9 +1,6 @@
 [bits 16]
 [org 0x7C00]
 
-boot_drive: db 0
-stage2_addr: dw 0x1000
-
 _start:
     cli
     cld
@@ -29,6 +26,14 @@ _start:
 
     mov ax, [stage2_addr]
     jmp ax
+
+boot_drive: db 0
+stage2_addr: dw 0x1000
+
+hang:
+    cli
+    hlt
+    jmp hang
 
 times 510 - ($-$$) db 0
 dw 0xAA55
