@@ -21,7 +21,7 @@ _start:
     mov cl, 2
     mov dh, 0
     mov dl, [boot_drive]
-    mov bx, stage2_addr
+    mov bx, [stage2_addr]
     int 0x13
 
     mov ax, [stage2_addr]
