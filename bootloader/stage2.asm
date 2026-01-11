@@ -17,6 +17,9 @@ stage2_start:
     mov [boot_drive], dl
 
 enable_a20:
+  in al, 0x92
+  or al, 00000010b
+  out 0x92, al
 
 gdt_start:
 
