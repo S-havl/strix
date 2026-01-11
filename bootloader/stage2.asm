@@ -30,6 +30,7 @@ gdt_code:
     dq 0x00CF9A000000FFFF
 
 gdt_data:
+    dq 0x00CF92000000FFFF
 
 gdt_end:
 
