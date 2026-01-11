@@ -24,6 +24,7 @@ enable_a20:
 gdt_start:
 
 gdt_null:
+    dq 0x0000000000000000
 
 gdt_code:
 
