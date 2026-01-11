@@ -22,6 +22,10 @@ stage2_start:
 
     lgdt [gdt_descriptor]
 
+    mov eax, cr0
+    or eax, 1
+    mov cr0, eax
+
 gdt_start:
 
 gdt_null:
