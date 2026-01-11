@@ -27,6 +27,7 @@ gdt_null:
     dq 0x0000000000000000
 
 gdt_code:
+    dq 0x00CF9A000000FFFF
 
 gdt_data:
 
