@@ -16,10 +16,9 @@ stage2_start:
 
     mov [boot_drive], dl
 
-enable_a20:
-  in al, 0x92
-  or al, 00000010b
-  out 0x92, al
+    in al, 0x92
+    or al, 00000010b
+    out 0x92, al
 
 gdt_start:
 
@@ -35,3 +34,5 @@ gdt_data:
 gdt_end:
 
 gdt_descriptor:
+    dw gdt_end - gdt_start - 1
+    dd gdt_start
