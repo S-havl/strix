@@ -42,3 +42,7 @@ gdt_end:
 gdt_descriptor:
     dw gdt_end - gdt_start - 1
     dd gdt_start
+
+CODE_SEL equ 1 << 3
+DATA_SEL equ 2 << 3
+
