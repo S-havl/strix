@@ -20,6 +20,8 @@ stage2_start:
     or al, 00000010b
     out 0x92, al
 
+    lgdt [gdt_descriptor]
+
 gdt_start:
 
 gdt_null:
