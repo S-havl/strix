@@ -1,9 +1,6 @@
 [bits 16]
 [org 0x1000]
 
-boot_drive: db 0
-kernel_addr: 0x2000
-
 stage2_start:
     cli
     cld
@@ -26,6 +23,8 @@ stage2_start:
     or eax, 1
     mov cr0, eax
 
+    jmp CODE_SEL:protected_entry
+
 gdt_start:
 
 gdt_null:
@@ -46,3 +45,20 @@ gdt_descriptor:
 CODE_SEL equ 1 << 3
 DATA_SEL equ 2 << 3
 
+boot_drive: db 0
+
+[bits 32]
+section .text
+
+protected_entry:
+    mov ax, DATA_SEL
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov ss, ax
+    mov esp, 0x9FC00
+
+section .data
+
+section .bss
