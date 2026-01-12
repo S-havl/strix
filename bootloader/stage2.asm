@@ -5,7 +5,7 @@ stage2_start:
     cli
     cld
 
-    mov ax, 0x1000
+    xor ax, ax
     mov ds, ax
     mov es, ax
     mov ss, ax
@@ -19,6 +19,7 @@ stage2_start:
 
     lgdt [gdt_descriptor]
 
+    cli
     mov eax, cr0
     or eax, 1
     mov cr0, eax
