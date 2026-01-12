@@ -1,6 +1,9 @@
 [bits 16]
 [org 0x7C00]
 
+start:
+    jmp 0x0000:_start
+
 _start:
     cli
     cld
@@ -21,14 +24,17 @@ _start:
     mov cl, 2
     mov dh, 0
     mov dl, [boot_drive]
-    mov bx, [stage2_addr]
+    xor ax, ax
+    mov es, ax
+    mov bx, STAGE2_OFFSET
     int 0x13
+    jc hang
 
-    mov ax, [stage2_addr]
+    mov ax, STAGE2_OFFSET
     jmp ax
 
 boot_drive: db 0
-stage2_addr: dw 0x1000
+STAGE2_OFFSET equ 0x1000
 
 hang:
     cli
