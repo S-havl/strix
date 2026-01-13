@@ -18,20 +18,20 @@ _start:
 
     mov [boot_drive], dl
 
+    xor ax, ax
+    mov es, ax
+    mov bx, STAGE2_OFFSET
+
     mov ah, 0x02
     mov al, 4
     mov ch, 0
     mov cl, 2
     mov dh, 0
     mov dl, [boot_drive]
-    xor ax, ax
-    mov es, ax
-    mov bx, STAGE2_OFFSET
     int 0x13
     jc hang
 
-    mov ax, STAGE2_OFFSET
-    jmp ax
+    jmp 0x0000:STAGE2_OFFSET
 
 boot_drive: db 0
 STAGE2_OFFSET equ 0x1000

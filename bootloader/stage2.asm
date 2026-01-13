@@ -60,6 +60,11 @@ protected_entry:
     mov ss, ax
     mov esp, 0x9FC00
 
+hang:
+    cli
+    hlt
+    jmp hang
+
 section .data
 
 section .bss
