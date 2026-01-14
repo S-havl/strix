@@ -60,6 +60,11 @@ protected_entry:
     mov ss, ax
     mov esp, 0x9FC00
 
+    mov edi, 0xB8000
+    add edi, (8*80 + 0)*2
+    mov ax, 0x0D4F
+    mov [edi], ax
+
 hang:
     cli
     hlt
