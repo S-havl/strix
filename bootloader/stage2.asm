@@ -65,6 +65,9 @@ protected_entry:
     mov ax, 0x0D4F
     mov [edi], ax
 
+    mov ax, 0x0D4B
+    mov [edi + 2], ax
+
 hang:
     cli
     hlt
