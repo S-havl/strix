@@ -49,7 +49,6 @@ DATA_SEL equ 2 << 3
 boot_drive: db 0
 
 [bits 32]
-section .text
 
 protected_entry:
     mov ax, DATA_SEL
@@ -72,7 +71,3 @@ hang:
     cli
     hlt
     jmp hang
-
-section .data
-
-section .bss
