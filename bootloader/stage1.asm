@@ -1,8 +1,8 @@
-[bits 16]
-[org 0x7C00]
+[bits 16]                         ; Define 16 bits for assembly
+[org 0x7C00]                      ; Start assembly at physical address 0x7C00
 
 start:
-    jmp 0x0000:_start
+    jmp 0x0000:_start             ; Normalize CS to 0x0000 using a far jump
 
 _start:
     cli
