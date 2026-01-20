@@ -1,73 +1,73 @@
-[bits 16]
-[org 0x1000]
+[bits 16]                         ; Define 16 bits for assembly
+[org 0x1000]                      ; Start assembly at 0x1000
 
 stage2_start:
-    cli
-    cld
+    cli                           ; Disable interrupts
+    cld                           ; Clear direction flag
 
     xor ax, ax
     mov ds, ax
-    mov es, ax
+    mov es, ax                    ; Initialize segments to 0x0000
     mov ss, ax
-    mov sp, 0x9C00
+    mov sp, 0x9C00                ; Stack pointer to 0x9C00
 
-    mov [boot_drive], dl
+    mov [boot_drive], dl          ; Save the boot drive number
 
     in al, 0x92
-    or al, 00000010b
+    or al, 00000010b              ; Enable A20 reading and writing to port 0x92 by modifying bit 1
     out 0x92, al
 
-    lgdt [gdt_descriptor]
+    lgdt [gdt_descriptor]         ; Load the GDT into the GDTR register with LGDT
 
-    cli
+    cli                           ; Ensure interruptions are disabled (Do not assume)
     mov eax, cr0
-    or eax, 1
-    mov cr0, eax
+    or eax, 1                     ; Activating protect mode (PM) by copying the value from CR0 to EAX,
+    mov cr0, eax                  ; turning on bit 1 with OR, and returning the value to CR0
 
-    jmp CODE_SEL:protected_entry
+    jmp CODE_SEL:protected_entry  ; Far jump to the label where the 32-bit protect mode (PM) starts
 
 gdt_start:
-
+                                  ; Creating the GDT table:
 gdt_null:
-    dq 0x0000000000000000
+    dq 0x0000000000000000         ; Null descriptor (0)
 
 gdt_code:
-    dq 0x00CF9A000000FFFF
+    dq 0x00CF9A000000FFFF         ; Code descriptor (1)
 
 gdt_data:
-    dq 0x00CF92000000FFFF
+    dq 0x00CF92000000FFFF         ; Data descriptor (2)
 
 gdt_end:
 
-gdt_descriptor:
-    dw gdt_end - gdt_start - 1
-    dd gdt_start
+gdt_descriptor:                   ; Creating the GDT descriptor
+    dw gdt_end - gdt_start - 1    ; GDT Size - 1
+    dd gdt_start                  ; Address where the GDT begins
 
-CODE_SEL equ 1 << 3
-DATA_SEL equ 2 << 3
+CODE_SEL equ 1 << 3               ; Selector constant for code descriptor (0x08)
+DATA_SEL equ 2 << 3               ; Selector constant for the data descriptor (0x10)
 
-boot_drive: db 0
+boot_drive: db 0                  ; Reserve bytes for the boot drive
 
-[bits 32]
+[bits 32]                         ; Define 32 bits for assembly
 
-protected_entry:
+protected_entry:                  ; Protectted mode (PM) is initiated
     mov ax, DATA_SEL
     mov ds, ax
     mov es, ax
-    mov fs, ax
+    mov fs, ax                    ; Initialize segments with the DATA_SEL selector using the GDT table
     mov gs, ax
     mov ss, ax
-    mov esp, 0x9FC00
+    mov esp, 0x9FC00              ; Stack pointer to 0x9FC00
 
     mov edi, 0xB8000
-    add edi, (8*80 + 0)*2
-    mov ax, 0x0D4F
+    add edi, (8*80 + 0)*2         ; Printing the letter O
+    mov ax, 0x0D4F                ; directly using VGA 0xB8000
     mov [edi], ax
 
-    mov ax, 0x0D4B
-    mov [edi + 2], ax
+    mov ax, 0x0D4B                ; Printing the letter K
+    mov [edi + 2], ax             ; with VGA 0xB8000
 
-hang:
-    cli
-    hlt
-    jmp hang
+hang:                             ; Hang loop tag
+    cli                           ; Disable interrupts
+    hlt                           ; Stop processor waiting for an external interrupt
+    jmp hang                      ; Jump to the hang tag for the loop
