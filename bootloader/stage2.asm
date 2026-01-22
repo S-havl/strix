@@ -59,15 +59,32 @@ protected_entry:                  ; Protectted mode (PM) is initiated
     mov ss, ax
     mov esp, 0x9FC00              ; Stack pointer to 0x9FC00
 
-    mov edi, 0xB8000
-    add edi, (8*80 + 0)*2         ; Printing the letter O
-    mov ax, 0x0D4F                ; directly using VGA 0xB8000
-    mov [edi], ax
-
-    mov ax, 0x0D4B                ; Printing the letter K
-    mov [edi + 2], ax             ; with VGA 0xB8000
+    mov esi, entering_pm_msg
+    call print_entering_msg
 
 hang:                             ; Hang loop tag
     cli                           ; Disable interrupts
     hlt                           ; Stop processor waiting for an external interrupt
     jmp hang                      ; Jump to the hang tag for the loop
+
+print_entering_msg:
+    pusha
+    mov edi, VGA_MEMORY + (8 * 80 + 0) * 2
+
+.loop:
+    lodsb
+    test al, al
+    jz .done
+
+    mov ah, COLOR
+    mov [edi], ax
+    add edi, 2
+    jmp .loop
+
+.done:
+    popa
+    ret
+
+VGA_MEMORY equ 0xB8000
+COLOR equ 0x0D
+entering_pm_msg db "Entering long mode...", 0
