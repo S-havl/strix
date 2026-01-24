@@ -59,32 +59,32 @@ protected_entry:                  ; Protectted mode (PM) is initiated
     mov ss, ax
     mov esp, 0x9FC00              ; Stack pointer to 0x9FC00
 
-    mov esi, entering_pm_msg
-    call print_entering_msg
+    mov esi, entering_pm_msg      ; Move the message to be printed to the ESI log
+    call print_entering_msg       ; Jump to the label or function print_entering_msg
 
 hang:                             ; Hang loop tag
     cli                           ; Disable interrupts
     hlt                           ; Stop processor waiting for an external interrupt
     jmp hang                      ; Jump to the hang tag for the loop
 
-print_entering_msg:
-    pusha
-    mov edi, VGA_MEMORY + (8 * 80 + 0) * 2
+print_entering_msg:               ; Function label
+    pusha                         ; Save the current state of all general-purpose records
+    mov edi, VGA_MEMORY + (8 * 80 + 0) * 2       ; Move VGA MEMORY 0xB8000 to the EDI register, adding the print start location
 
-.loop:
-    lodsb
-    test al, al
-    jz .done
+.loop:                            ; Print loop label
+    lodsb                         ; Load string byte
+    test al, al                   ; Check if AL equals zero
+    jz .done                      ; If AL equals zero, jump to the .done label/function
 
-    mov ah, COLOR
-    mov [edi], ax
-    add edi, 2
-    jmp .loop
+    mov ah, COLOR                 ; Move color 0x0D to AH
+    mov [edi], ax                 ; Move the color along with the character from AX to the EDI record
+    add edi, 2                    ; Add 2 to the EDI record to avoid overwriting characters
+    jmp .loop                     ; Jump to the label to create the loop until the entire sentence is printed
 
-.done:
-    popa
-    ret
+.done:                            ; .done tag for when the entire sentence finishes printing
+    popa                          ; Extract the state of the general-purpose registers we store on the stack with PUSHA
+    ret                           ; Return to the point after the print_entering_msg call
 
-VGA_MEMORY equ 0xB8000
-COLOR equ 0x0D
-entering_pm_msg db "Entering long mode...", 0
+VGA_MEMORY equ 0xB8000            ; Constant for VGA MEMORY 0xB8000
+COLOR equ 0x0D                    ; Constant for attribute color
+entering_pm_msg db "Entering long mode...", 0    ; Define memory for the message to be printed
