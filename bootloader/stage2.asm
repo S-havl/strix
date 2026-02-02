@@ -111,6 +111,10 @@ print_entering_msg:
 setup_long_mode:
 
 
+; ==================================================
+;                PAGE TABLES (4 levels)
+; ==================================================
+
 ; ---------------- CONSTANTS / DATA ----------------
 VGA_MEMORY equ 0xB8000
 COLOR equ 0x0D
