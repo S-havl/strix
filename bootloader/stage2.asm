@@ -39,7 +39,7 @@ enter_protect_mode:
     jmp CODE_SEL:protected_entry  ; Far jump to 32-bit PM
 
 ; ---------------------------------------------
-;                     GDT
+;                     GDT (32 BITS)
 ; ---------------------------------------------
 gdt_start:
 gdt_null:
@@ -78,12 +78,7 @@ protected_entry:
     mov esi, entering_pm_msg
     call print_entering_msg
 
-
-    ; Temporary hang until LM implemented
-.hang:
-    cli
-    hlt
-    jmp .hang
+    jmp setup_long_mode
 
 ; -------------------------------------------
 ; PRINT FUNCTION (32-bit PM)
@@ -109,13 +104,93 @@ print_entering_msg:
 ;                SETUP LONG MODE
 ; ==================================================
 setup_long_mode:
+    mov eax, cr4
+    or eax, 0x20
+    mov cr4, eax
 
+    lgdt [gdt64_descriptor]
+
+    mov eax, pml4
+    mov cr3, eax
+
+    mov ecx, 0xC0000080
+    rdmsr
+    or eax, 0x100
+    wrmsr
+
+    mov eax, cr0
+    or eax, 0x80000000
+    mov cr0, eax
+
+    jmp CODE64_SEL:long_mode_entry
+
+; ==================================================
+;                GDT (64 BITS)
+; ==================================================
+
+align 8
+gdt64_start:
+    dq 0
+gdt64_code:
+    dq 0x00AF9A000000FFFF
+gdt64_data:
+    dq 0x00AF92000000FFFF
+gdt64_end:
+
+gdt64_descriptor:
+    dw gdt64_end - gdt64_start - 1
+    dd gdt64_start
+
+CODE64_SEL equ 1 << 3
+DATA64_SEL equ 2 << 3
 
 ; ==================================================
 ;                PAGE TABLES (4 levels)
 ; ==================================================
 
-; ---------------- CONSTANTS / DATA ----------------
+align 4096
+pml4:
+    dq pdpt + 0x03
+
+align 4096
+pdpt:
+    dq pd + 0x03
+
+align 4096
+pd:
+    dq 0x00000000 + 0x83
+
+; --------------------------------------------------
+;                STACK (64 BITS)
+; --------------------------------------------------
+
+align 16
+stack_bottom:
+    times 16384 db 0
+stack_top:
+
+; ---------------- CONSTANTS / DATA PM ----------------
 VGA_MEMORY equ 0xB8000
 COLOR equ 0x0D
 entering_pm_msg db "Entering long mode...", 0
+
+; ==================================================
+;                    LONG MODE
+; ==================================================
+[bits 64]
+
+long_mode_entry:
+    mov ax, DATA64_SEL
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov ss, ax
+    mov rsp, stack_top
+
+    and rsp, -16
+
+.hang:
+    cli
+    hlt
+    jmp .hang
