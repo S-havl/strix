@@ -15,7 +15,7 @@ $(IMG): $(BIN)
 	dd if=stage2.bin of=$(IMG) bs=512 seek=1 conv=notrunc
 
 run: $(IMG)
-	qemu-system-i386 -hda $(IMG)
+	qemu-system-x86_64 -hda $(IMG) -serial stdio -d int
 
 gdb: $(IMG)
 	qemu-system-i386 -hda $(IMG) -s -S
