@@ -104,70 +104,83 @@ print_entering_msg:
 ;                SETUP LONG MODE
 ; ==================================================
 setup_long_mode:
+
+    mov edi, 0x2000
+    mov dword [edi], 0x3000 | 0x03
+    mov dword [edi+4], 0
+
+    mov edi, 0x3000
+    mov dword [edi], 0x4000 | 0x03
+    mov dword [edi+4], 0
+
+    mov edi, 0x4000
+
+    mov eax, 0x00000083   ; 0–2MB
+    mov [edi], eax
+    mov dword [edi+4], 0
+
+    mov eax, 0x00200083   ; 2–4MB
+    mov [edi+8], eax
+    mov dword [edi+12], 0
+
+    mov eax, 0x00400083   ; 4–6MB
+    mov [edi+16], eax
+    mov dword [edi+20], 0
+
+    mov eax, 0x00600083   ; 6–8MB
+    mov [edi+24], eax
+    mov dword [edi+28], 0
+
+    mov eax, 0x00800083   ; 8–10MB
+    mov [edi+32], eax
+    mov dword [edi+36], 0
+
+    mov eax, 0x00A00083   ; 10–12MB
+    mov [edi+40], eax
+    mov dword [edi+44], 0
+
+    mov eax, 0x00C00083   ; 12–14MB
+    mov [edi+48], eax
+    mov dword [edi+52], 0
+
+    mov eax, 0x00E00083   ; 14–16MB
+    mov [edi+56], eax
+    mov dword [edi+60], 0
+
+    mov edi, 0x5000
+
+    mov dword [edi], 0
+    mov dword [edi+4], 0
+
+    mov dword [edi+8], 0x00000000
+    mov dword [edi+12], 0x00209A00
+
+    mov dword [edi+16], 0x00000000
+    mov dword [edi+20], 0x00009200
+
     mov eax, cr4
-    or eax, 0x20
+    or eax, 1 << 5
     mov cr4, eax
 
-    lgdt [gdt64_descriptor]
-
-    mov eax, pml4
+    mov eax, 0x2000
     mov cr3, eax
 
     mov ecx, 0xC0000080
     rdmsr
-    or eax, 0x100
+    or eax, 1 << 8
     wrmsr
+
+    lgdt [gdt64_descriptor]
 
     mov eax, cr0
     or eax, 0x80000000
     mov cr0, eax
 
-    jmp CODE64_SEL:long_mode_entry
-
-; ==================================================
-;                GDT (64 BITS)
-; ==================================================
-
-align 8
-gdt64_start:
-    dq 0
-gdt64_code:
-    dq 0x00AF9A000000FFFF
-gdt64_data:
-    dq 0x00AF92000000FFFF
-gdt64_end:
+    jmp 0x08:long_mode_entry
 
 gdt64_descriptor:
-    dw gdt64_end - gdt64_start - 1
-    dd gdt64_start
-
-CODE64_SEL equ 1 << 3
-DATA64_SEL equ 2 << 3
-
-; ==================================================
-;                PAGE TABLES (4 levels)
-; ==================================================
-
-align 4096
-pml4:
-    dq pdpt + 0x03
-
-align 4096
-pdpt:
-    dq pd + 0x03
-
-align 4096
-pd:
-    dq 0x00000000 + 0x83
-
-; --------------------------------------------------
-;                STACK (64 BITS)
-; --------------------------------------------------
-
-align 16
-stack_bottom:
-    times 16384 db 0
-stack_top:
+    dw 24-1
+    dd 0x5000
 
 ; ---------------- CONSTANTS / DATA PM ----------------
 VGA_MEMORY equ 0xB8000
@@ -180,7 +193,7 @@ entering_pm_msg db "Entering long mode...", 0
 [bits 64]
 
 long_mode_entry:
-    mov ax, DATA64_SEL
+    mov ax, 0x10
     mov ds, ax
     mov es, ax
     mov fs, ax
