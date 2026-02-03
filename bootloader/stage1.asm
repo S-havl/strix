@@ -30,7 +30,7 @@ _start:
     mov bx, STAGE2_OFFSET         ; Offset 0x1000
 
     mov ah, 0x02                  ; BIOS read sectors
-    mov al, 4                     ; Read 4 sectors
+    mov al, 8                     ; Read 8 sectors
     mov ch, 0                     ; Cylinder 0
     mov cl, 2                     ; Starting sector 2
     mov dh, 0                     ; Head 0
