@@ -15,7 +15,7 @@ stage2_start:
     mov ds, ax
     mov es, ax
     mov ss, ax
-    mov sp, 0x9C00
+    mov sp, 0x9000
 
     mov [boot_drive], dl          ; Save boot drive number
 
@@ -72,7 +72,7 @@ protected_entry:
     mov fs, ax
     mov gs, ax
     mov ss, ax
-    mov esp, 0x9FC00
+    mov esp, 0x9000
 
     ; Print status message
     mov esi, entering_pm_msg
@@ -186,8 +186,8 @@ long_mode_entry:
     mov fs, ax
     mov gs, ax
     mov ss, ax
-    mov rsp, stack_top
 
+    mov rsp, 0x90000
     and rsp, -16
 
 .hang:
