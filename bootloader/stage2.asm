@@ -19,6 +19,18 @@ stage2_start:
 
     mov [boot_drive], dl          ; Save boot drive number
 
+    mov ax, 0x0000
+    mov es, ax
+    mov bx, 0x8000
+
+    mov ah, 0x02
+    mov al, 40
+    mov ch, 0
+    mov cl, 11
+    mov dh, 0
+    mov dl, [boot_drive]
+    int 0x13
+
     jmp enter_protect_mode        ; Transition to PM
 
 ; ==========================================================
@@ -74,11 +86,29 @@ protected_entry:
     mov ss, ax
     mov esp, 0x9000
 
-    ; Print status message
-    mov esi, entering_pm_msg
-    call print_entering_msg
+    mov esi, 0x8000
+    call check_elf
 
     jmp setup_long_mode
+
+check_elf:
+    pusha
+
+    mov eax, [esi]
+    cmp eax, 0x464C457F
+    jne .not_elf
+
+    mov esi, elf_ok_msg
+    call print_entering_msg
+    jmp .done
+
+.not_elf:
+    mov esi, elf_fail_msg
+    call print_entering_msg
+
+.done:
+    popa
+    ret
 
 ; -------------------------------------------
 ; PRINT FUNCTION (32-bit PM)
@@ -186,6 +216,8 @@ gdt64_descriptor:
 VGA_MEMORY equ 0xB8000
 COLOR equ 0x0D
 entering_pm_msg db "Entering long mode...", 0
+elf_ok_msg db "ELF successfully detected!", 0
+elf_fail_msg db "The file is not ELF :C", 0
 
 ; ==================================================
 ;                    LONG MODE

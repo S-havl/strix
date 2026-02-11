@@ -13,6 +13,7 @@ $(IMG): $(BIN)
 	dd if=/dev/zero of=$(IMG) bs=512 count=4096
 	dd if=stage1.bin of=$(IMG) bs=512 count=1 conv=notrunc
 	dd if=stage2.bin of=$(IMG) bs=512 seek=1 conv=notrunc
+	dd if=kernel.elf of=disk.img bs=512 seek=10 conv=notrunc
 
 run: $(IMG)
 	qemu-system-x86_64 -hda $(IMG) -serial stdio -d int

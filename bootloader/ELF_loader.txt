@@ -1,0 +1,19 @@
+ELF first 4 bytes = 0x464C457F
+
+.text
+.rodata
+.data
+.bss
+
+Compiler:
+
+x86_64-linux-musl-gcc \
+-ffreestanding -nostdlib -mno-red-zone -mcmodel=kernel \
+-fno-pic -fno-pie -no-pie \
+-T linker.ld kernel.c -o kernel.elf
+
+
+Write:
+
+dd if=kernel.elf of=disk.img bs=512 seek=10 conv=notrunc
+
