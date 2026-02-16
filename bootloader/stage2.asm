@@ -86,8 +86,15 @@ protected_entry:
     mov ss, ax
     mov esp, 0x9000
 
+    mov esi, entering_lm_msg
+    call print_entering_msg
+
     mov esi, 0x8000
     call check_elf
+
+    add esi, 0x18
+    mov eax, [esi]
+    call check_entry_point
 
     jmp setup_long_mode
 
@@ -110,12 +117,59 @@ check_elf:
     popa
     ret
 
+check_entry_point:
+    pusha
+
+    mov edi, entry_buffer
+
+    mov esi, entry_prefix
+
+.copy_prefix:
+    lodsb
+    test al, al
+    jz .prefix_done
+    mov [edi], al
+    inc edi
+    jmp .copy_prefix
+
+.prefix_done:
+
+    mov ecx, 8
+hex_loop:
+    mov edx, eax
+    shr edx, 28
+    and edx, 0xF
+
+    cmp dl, 9
+    jle .is_number
+    add dl, 55
+    jmp .store
+
+.is_number:
+    add dl, 48
+
+.store:
+    mov [edi], dl
+    inc edi
+
+    shl eax, 4
+    loop hex_loop
+
+    mov byte [edi], 0
+
+    mov esi, entry_buffer
+    call print_entering_msg
+
+    popa
+    ret
+
+
 ; -------------------------------------------
 ; PRINT FUNCTION (32-bit PM)
 ; -------------------------------------------
 print_entering_msg:
     pusha
-    mov edi, VGA_MEMORY + (8*80 + 0) * 2
+    mov edi, [cursor_pos]
 
 .loop:
     lodsb
@@ -127,6 +181,8 @@ print_entering_msg:
     jmp .loop
 
 .done:
+    add dword [cursor_pos], 160
+
     popa
     ret
 
@@ -215,9 +271,12 @@ gdt64_descriptor:
 ; ---------------- CONSTANTS / DATA PM ----------------
 VGA_MEMORY equ 0xB8000
 COLOR equ 0x0D
-entering_pm_msg db "Entering long mode...", 0
+entering_lm_msg db "Entering long mode...", 0
 elf_ok_msg db "ELF successfully detected!", 0
 elf_fail_msg db "The file is not ELF :C", 0
+entry_prefix db "Entry point: 0x", 0
+entry_buffer times 32 db 0
+cursor_pos dd VGA_MEMORY + (8*80)*2
 
 ; ==================================================
 ;                    LONG MODE
