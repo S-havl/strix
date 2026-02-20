@@ -1,4 +1,5 @@
 ELF first 4 bytes = 0x464C457F
+ENTRY POINT = 0x00100073
 
 .text
 .rodata

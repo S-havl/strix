@@ -121,19 +121,6 @@ check_entry_point:
     pusha
 
     mov edi, entry_buffer
-
-    mov esi, entry_prefix
-
-.copy_prefix:
-    lodsb
-    test al, al
-    jz .prefix_done
-    mov [edi], al
-    inc edi
-    jmp .copy_prefix
-
-.prefix_done:
-
     mov ecx, 8
 hex_loop:
     mov edx, eax
@@ -272,10 +259,9 @@ gdt64_descriptor:
 VGA_MEMORY equ 0xB8000
 COLOR equ 0x0D
 entering_lm_msg db "Entering long mode...", 0
-elf_ok_msg db "ELF successfully detected!", 0
+elf_ok_msg db "ELF successfully detected. Entry point: 0x", 0
 elf_fail_msg db "The file is not ELF :C", 0
-entry_prefix db "Entry point: 0x", 0
-entry_buffer times 32 db 0
+entry_buffer times 9 db 0
 cursor_pos dd VGA_MEMORY + (8*80)*2
 
 ; ==================================================
