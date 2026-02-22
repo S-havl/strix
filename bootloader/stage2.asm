@@ -270,6 +270,9 @@ cursor_pos dd VGA_MEMORY + (8*80)*2
 [bits 64]
 
 long_mode_entry:
+    cli
+    cld
+
     mov ax, 0x10
     mov ds, ax
     mov es, ax
@@ -279,6 +282,8 @@ long_mode_entry:
 
     mov rsp, 0x90000
     and rsp, -16
+
+    mov rsi, 0x8000
 
 .hang:
     cli
