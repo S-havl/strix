@@ -289,3 +289,6 @@ long_mode_entry:
     cli
     hlt
     jmp .hang
+
+; ---------------- CONSTANTS / DATA LM ----------------
+
