@@ -284,6 +284,12 @@ long_mode_entry:
     and rsp, -16
 
     mov rsi, 0x8000
+    mov rbx, [rsi + 0x20] ; e_phoff
+    add rsi, rbx
+
+    mov cx, [rsi + 0x36] ; e_phentsize
+    mov dx, [rsi + 38] ; e_phnum
+
 
 .hang:
     cli
