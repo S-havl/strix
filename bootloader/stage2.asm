@@ -283,13 +283,30 @@ long_mode_entry:
     mov rsp, 0x90000
     and rsp, -16
 
-    mov rsi, 0x8000
-    mov rbx, [rsi + 0x20] ; e_phoff
-    add rsi, rbx
+    mov rbx, 0x8000
 
-    mov cx, [rsi + 0x36] ; e_phentsize
-    mov dx, [rsi + 38] ; e_phnum
+    movzx r8, word [rbx + 0x38]
+    movzx rcx, word [rbx + 0x36]
 
+    mov rsi, [rbx + 0x20] ; e_phoff
+    lea rsi, [rbx + rsi] ; absolute address e_phoff
+
+.loop:
+    test r8, r8
+    jz .end
+
+    mov eax, dword [rsi] ; p_type
+    cmp eax, 1           ; PT_LOAD
+    jne .next
+
+
+
+.next:
+    add rsi, rcx
+    dec r8
+    jmp .loop
+
+.end:
 
 .hang:
     cli
