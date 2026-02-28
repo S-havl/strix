@@ -283,12 +283,12 @@ long_mode_entry:
     mov rsp, 0x90000
     and rsp, -16
 
-    mov rbx, 0x8000
+    mov rbx, ELF64
 
-    movzx r8, word [rbx + 0x38]
-    movzx rcx, word [rbx + 0x36]
+    movzx r8, word [rbx + E_PHNUM] ; e_phnum
+    movzx rcx, word [rbx + E_PHENTSIZE] ; e_phentsize
 
-    mov rsi, [rbx + 0x20] ; e_phoff
+    mov rsi, [rbx + E_PHOFF] ; e_phoff
     lea rsi, [rbx + rsi] ; absolute address e_phoff
 
 .loop:
@@ -299,7 +299,9 @@ long_mode_entry:
     cmp eax, 1           ; PT_LOAD
     jne .next
 
-
+    mov r9, [rsi + P_OFFSET] ; p_offset
+    mov r10, [rsi + P_VADDR] ; p_vaddr
+    mov r11, [rsi + P_FILESZ] ; p_filesz
 
 .next:
     add rsi, rcx
@@ -314,4 +316,20 @@ long_mode_entry:
     jmp .hang
 
 ; ---------------- CONSTANTS / DATA LM ----------------
+ELF64 equ 0x8000
+E_PHOFF equ 0x20
+E_PHENTSIZE equ 0x36
+E_PHNUM equ 0x38
+P_OFFSET equ 0x08
+P_VADDR equ 0x10
+P_FILESZ equ 0x20
+
+
+
+
+
+
+
+
+
 
