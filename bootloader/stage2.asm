@@ -286,34 +286,36 @@ long_mode_entry:
     mov rbx, ELF64
 
     movzx r8, word [rbx + E_PHNUM] ; e_phnum
-    movzx rcx, word [rbx + E_PHENTSIZE] ; e_phentsize
+    movzx r9, word [rbx + E_PHENTSIZE] ; e_phentsize
 
-    mov rsi, [rbx + E_PHOFF] ; e_phoff
-    lea rsi, [rbx + rsi] ; absolute address e_phoff
+    mov rdx, [rbx + E_PHOFF] ; e_phoff
+    lea rdx, [rbx + rdx] ; absolute address e_phoff
 
 .loop:
     test r8, r8
     jz .end
 
-    mov eax, dword [rsi] ; p_type
+    mov eax, dword [rdx] ; p_type
     cmp eax, 1           ; PT_LOAD
     jne .next
 
-    mov r9, [rsi + P_OFFSET] ; p_offset
-    mov r10, [rsi + P_VADDR] ; p_vaddr
-    mov r11, [rsi + P_FILESZ] ; p_filesz
+    mov r10, [rdx + P_OFFSET] ; p_offset
+    mov r11, [rdx + P_VADDR] ; p_vaddr
+    mov r12, [rdx + P_FILESZ] ; p_filesz
 
-    lea rsi, [rbx + r9]
-    mov rdi, r10
-    mov rcx, r11
+    lea rsi, [rbx + r10]
+    mov rdi, r11
+    mov rcx, r12
     rep movsb
 
 .next:
-    add rsi, rcx
+    add rdx, r9
     dec r8
     jmp .loop
 
 .end:
+    mov rax, [rbx + 0x18]
+    jmp rax
 
 .hang:
     cli
