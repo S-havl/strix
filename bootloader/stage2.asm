@@ -303,6 +303,11 @@ long_mode_entry:
     mov r10, [rsi + P_VADDR] ; p_vaddr
     mov r11, [rsi + P_FILESZ] ; p_filesz
 
+    lea rsi, [rbx + r9]
+    mov rdi, r10
+    mov rcx, r11
+    rep movsb
+
 .next:
     add rsi, rcx
     dec r8
