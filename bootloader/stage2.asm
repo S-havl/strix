@@ -24,7 +24,7 @@ stage2_start:
     mov bx, 0x8000
 
     mov ah, 0x02
-    mov al, 40
+    mov al, 128
     mov ch, 0
     mov cl, 11
     mov dh, 0
