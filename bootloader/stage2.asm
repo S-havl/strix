@@ -302,11 +302,18 @@ long_mode_entry:
     mov r10, [rdx + P_OFFSET] ; p_offset
     mov r11, [rdx + P_VADDR] ; p_vaddr
     mov r12, [rdx + P_FILESZ] ; p_filesz
+    mov r13, [rdx + P_MEMSZ] ; p_memsz
 
     lea rsi, [rbx + r10]
     mov rdi, r11
     mov rcx, r12
     rep movsb
+
+    mov rcx, r13
+    sub rcx, r12
+    jz .next
+    xor al, al
+    rep stosb
 
 .next:
     add rdx, r9
@@ -330,6 +337,7 @@ E_PHNUM equ 0x38
 P_OFFSET equ 0x08
 P_VADDR equ 0x10
 P_FILESZ equ 0x20
+P_MEMSZ equ 0x28
 
 
 
