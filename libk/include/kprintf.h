@@ -4,6 +4,6 @@
 #include <stdint.h>
 #include <stddef.h>
 
-void kprintf(const uint8_t* str);
+void kprintf(const char* str);
 
 #endif
