@@ -12,3 +12,9 @@ void kprintf(const char* str) {
         vga[i] = ((uint16_t)VGA_COLOR << 8) | (uint8_t)str[i];
     }
 }
+
+void clear_screen() {
+    for (int i = 0; i < 80 * 25; i++) {
+        vga[i] = 0x0720;
+  }
+}
