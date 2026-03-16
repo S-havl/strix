@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <gdt.h>
 
+#define GDT_SIZE 5
+
 #pragma pack(push, 1)
 struct GDTEntry {
     uint16_t limit_low;
@@ -17,3 +19,8 @@ struct GDTR {
 };
 #pragma pack(pop)
 
+struct GDTEntry gdt[GDTEntry];
+
+void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
+    ;
+}
