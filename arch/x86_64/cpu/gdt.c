@@ -19,7 +19,7 @@ struct GDTR {
 };
 #pragma pack(pop)
 
-struct GDTEntry gdt[GDTEntry];
+struct GDTEntry gdt[GDT_SIZE];
 
 void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
     entry->base_low    = base & 0xFFFF;
