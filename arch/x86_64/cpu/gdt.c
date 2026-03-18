@@ -20,6 +20,7 @@ struct GDTR {
 #pragma pack(pop)
 
 struct GDTEntry gdt[GDT_SIZE];
+struct GDTR gdtr;
 
 void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
     entry->base_low    = base & 0xFFFF;
@@ -28,4 +29,9 @@ void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_
     entry->limit_low   = limit & 0xFFFF;
     entry->granularity = ((limit >> 16) & 0x0F) | (flags & 0xF0);
     entry->access      = access;
+}
+
+void init_gdt() {
+    gdtr.limit = sizeof(gdt) - 1;
+    gdtr.base  = (uint64_t)&gdt;
 }
