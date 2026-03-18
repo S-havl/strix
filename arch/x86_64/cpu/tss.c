@@ -29,3 +29,14 @@ struct TSS {
     uint16_t reserved3;
     uint16_t io_map_base;
 } __attribute__((packed));
+
+void set_gdt_tss(struct GDTEntry64 *entry, uint64_t base, uint32_t limit, uint8_t access, uint8_t flags) {
+    entry->base_low     = base & 0xFFFF;
+    entry->base_middle  = (base >> 16) & 0xFF;
+    entry->base_high    = (base >> 24) & 0xFF;
+    entry->base_upper   = (base >> 32) & 0xFFFFFFFF;
+    entry->limit_low    = limit & 0xFFFF;
+    entry->granularity  = ((limit >> 16) & 0x0F) | (flags & 0xF0);
+    entry->access       = access;
+    entry->reserved     = 0;
+}
