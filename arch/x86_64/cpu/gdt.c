@@ -34,4 +34,15 @@ void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_
 void init_gdt() {
     gdtr.limit = sizeof(gdt) - 1;
     gdtr.base  = (uint64_t)&gdt;
+
+    set_gdt_entry(&gdt[0], 0, 0, 0, 0);
+
+    set_gdt_entry(&gdt[1], 0, 0xFFFFF, 0x9A, 0xA0);
+    
+    set_gdt_entry(&gdt[2], 0, 0xFFFFF, 0x92, 0xA0);
+
+    set_gdt_entry(&gdt[3], 0, 0xFFFFF, 0xFA, 0xA0);
+
+    set_gdt_entry(&gdt[4], 0, 0xFFFFF, 0xF2, 0xA0);
+
 }
