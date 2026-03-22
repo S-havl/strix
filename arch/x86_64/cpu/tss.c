@@ -30,6 +30,8 @@ struct TSS {
     uint16_t io_map_base;
 } __attribute__((packed));
 
+struct GDTEntry64 tss_entry;
+
 void set_gdt_tss(struct GDTEntry64 *entry, uint64_t base, uint32_t limit, uint8_t access, uint8_t flags) {
     entry->base_low     = base & 0xFFFF;
     entry->base_middle  = (base >> 16) & 0xFF;
@@ -40,3 +42,6 @@ void set_gdt_tss(struct GDTEntry64 *entry, uint64_t base, uint32_t limit, uint8_
     entry->access       = access;
     entry->reserved     = 0;
 }
+
+uint64_t tss_base = (uint64_t)&tss;
+set_gdt_tss(&tss_entry, tss_base, sizeof(tss)-1, 0x89, 0x00);
