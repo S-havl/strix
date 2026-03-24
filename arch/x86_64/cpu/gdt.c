@@ -1,7 +1,14 @@
 #include <stdint.h>
 #include <gdt.h>
+#include <tss.h>
 
-#define GDT_SIZE 5
+#define GDT_SIZE 7
+
+#define GDT_FLAG_GRANULARITY 0x80
+#define GDT_FLAG_LONG        0x20
+
+#define GDT_FLAGS_CODE (GDT_FLAG_GRANULARITY | GDT_FLAG_LONG)
+#define GDT_FLAGS_DATA (GDT_FLAG_GRANULARITY)
 
 #pragma pack(push, 1)
 struct GDTEntry {
@@ -19,10 +26,13 @@ struct GDTR {
 };
 #pragma pack(pop)
 
-struct GDTEntry gdt[GDT_SIZE];
-struct GDTR gdtr;
+static struct GDTEntry gdt[GDT_SIZE];
+static struct GDTR gdtr;
 
-void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
+
+static void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
+    *entry = (struct GDTEntry){0};
+
     entry->base_low    = base & 0xFFFF;
     entry->base_middle = (base >> 16) & 0xFF;
     entry->base_high   = (base >> 24) & 0xFF;
@@ -31,18 +41,45 @@ void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_
     entry->access      = access;
 }
 
+
+static void set_tss_descriptor(int index, uint64_t base, uint32_t limit) {
+    uint64_t *gdt64 = (uint64_t*)gdt;
+
+    uint64_t low = 0;
+    uint64_t high = 0;
+
+    low |= (limit & 0xFFFF);
+    low |= (base & 0xFFFFFF) << 16;
+    low |= (uint64_t)0x89 << 40;
+    low |= ((limit >> 16) & 0xF) << 48;
+    low |= ((base >> 24) & 0xFF) << 56;
+
+    high = base >> 32;
+
+    gdt64[index]     = low;
+    gdt64[index + 1] = high;
+}
+
+
+extern void gdt_flush(struct GDTR* gdtr);
+extern void tss_flush();
+
+
 void init_gdt() {
     gdtr.limit = sizeof(gdt) - 1;
     gdtr.base  = (uint64_t)&gdt;
 
     set_gdt_entry(&gdt[0], 0, 0, 0, 0);
 
-    set_gdt_entry(&gdt[1], 0, 0xFFFFF, 0x9A, 0xA0);
-    
-    set_gdt_entry(&gdt[2], 0, 0xFFFFF, 0x92, 0xA0);
+    set_gdt_entry(&gdt[1], 0, 0xFFFFF, 0x9A, GDT_FLAGS_CODE);
+    set_gdt_entry(&gdt[2], 0, 0xFFFFF, 0x92, GDT_FLAGS_DATA);
 
-    set_gdt_entry(&gdt[3], 0, 0xFFFFF, 0xFA, 0xA0);
+    set_gdt_entry(&gdt[3], 0, 0xFFFFF, 0xFA, GDT_FLAGS_CODE);
+    set_gdt_entry(&gdt[4], 0, 0xFFFFF, 0xF2, GDT_FLAGS_DATA);
 
-    set_gdt_entry(&gdt[4], 0, 0xFFFFF, 0xF2, 0xA0);
+    set_tss_descriptor(5, (uint64_t)&tss, sizeof(tss) - 1);
 
+    gdt_flush(&gdtr);
+
+    tss_flush();
 }
