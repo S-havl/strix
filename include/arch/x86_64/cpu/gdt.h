@@ -1,4 +1,4 @@
 #pragma once
 #include <stdint.h>
 
-void init_gdt();
+void init_gdt(void);
