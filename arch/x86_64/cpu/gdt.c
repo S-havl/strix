@@ -1,6 +1,6 @@
 #include <stdint.h>
-#include <gdt.h>
-#include <tss.h>
+#include <arch/x86_64/cpu/gdt.h>
+// #include <arch/x86_64/cpu/tss.h>
 
 #define GDT_SIZE 7
 
@@ -42,30 +42,30 @@ static void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit,
 }
 
 
-static void set_tss_descriptor(int index, uint64_t base, uint32_t limit) {
-    uint64_t *gdt64 = (uint64_t*)gdt;
+// static void set_tss_descriptor(int index, uint64_t base, uint32_t limit) {
+//    uint64_t *gdt64 = (uint64_t*)gdt;
 
-    uint64_t low = 0;
-    uint64_t high = 0;
+//    uint64_t low = 0;
+//    uint64_t high = 0;
 
-    low |= (limit & 0xFFFF);
-    low |= (base & 0xFFFFFF) << 16;
-    low |= (uint64_t)0x89 << 40;
-    low |= ((limit >> 16) & 0xF) << 48;
-    low |= ((base >> 24) & 0xFF) << 56;
+//    low |= (limit & 0xFFFF);
+//    low |= (base & 0xFFFFFF) << 16;
+//    low |= (uint64_t)0x89 << 40;
+//    low |= ((limit >> 16) & 0xF) << 48;
+//    low |= ((base >> 24) & 0xFF) << 56;
 
-    high = base >> 32;
+//    high = base >> 32;
 
-    gdt64[index]     = low;
-    gdt64[index + 1] = high;
-}
-
-
-extern void gdt_flush(struct GDTR* gdtr);
-extern void tss_flush();
+//    gdt64[index]     = low;
+//    gdt64[index + 1] = high;
+//}
 
 
-void init_gdt() {
+// extern void gdt_flush(struct GDTR* gdtr);
+// extern void tss_flush();
+
+
+void init_gdt(void) {
     gdtr.limit = sizeof(gdt) - 1;
     gdtr.base  = (uint64_t)&gdt;
 
@@ -77,9 +77,9 @@ void init_gdt() {
     set_gdt_entry(&gdt[3], 0, 0xFFFFF, 0xFA, GDT_FLAGS_CODE);
     set_gdt_entry(&gdt[4], 0, 0xFFFFF, 0xF2, GDT_FLAGS_DATA);
 
-    set_tss_descriptor(5, (uint64_t)&tss, sizeof(tss) - 1);
+    // set_tss_descriptor(5, (uint64_t)&tss, sizeof(tss) - 1);
 
-    gdt_flush(&gdtr);
+    // gdt_flush(&gdtr);
 
-    tss_flush();
+    // tss_flush();
 }
