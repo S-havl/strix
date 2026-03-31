@@ -9,9 +9,14 @@
 
 void kernel_init() {
     kprintf("Starting kernel...\n");
+    kprintf("Hello world from the kernel!\n");
+    kprintf("Test1.\n");
+    kprintf("Test2.\n");
+    kprintf("Test3.\n");
+    kprintf("Everything perfect.\n");
 
     init_gdt();
-    kprintf("GDT initialized\n");
+    kprintf("GDT initialized.\n");
 
     // tss_init();
     // kprintf("TSS initialized\n");
