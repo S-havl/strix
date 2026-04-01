@@ -2,7 +2,7 @@
 # Toolchain
 # -------------------------------
 NASM = nasm
-CC   = x86_64-linux-musl-gcc
+CC   = x86_64-elf-gcc
 
 # -------------------------------
 # Build folders
