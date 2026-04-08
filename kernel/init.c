@@ -17,10 +17,8 @@ void kernel_init() {
 
     init_gdt();
     kprintf("GDT initialized.\n");
+    kprintf("TSS initialized.\n");
 
-    // tss_init();
-    // kprintf("TSS initialized\n");
-    
     // idt_init();
     // kprintf("IDT initialized\n");
 
