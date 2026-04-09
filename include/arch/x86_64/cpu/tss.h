@@ -20,3 +20,5 @@ struct TSS {
 } __attribute__((packed));
 
 extern struct TSS tss;
+
+void tss_flush(uint16_t selector);
