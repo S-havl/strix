@@ -70,6 +70,19 @@ void init_gdt(void) {
     set_tss_descriptor(5, (uint64_t)&tss, sizeof(tss) - 1);
 
     gdt_flush(&gdtr);
+
+    // far jump
+    asm volatile (
+        "pushq $0x08\n"
+	"lea 1f(%%rip), %%rax\n"
+	"pushq %%rax\n"
+	"lretq\n"
+	"1:\n"
+	::: "rax", "memory"
+    );
+
+    asm volatile ("" ::: "memory");
+
     tss_flush(0x28);
 
 }

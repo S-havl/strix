@@ -22,6 +22,7 @@ Test1.
 Test2.
 Test3.
 Everything perfect.
+CS reloaded.
 Entering long mode...
 ELF successfully detected. Entry point: 0x
 0010006C
