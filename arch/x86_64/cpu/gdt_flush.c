@@ -2,5 +2,10 @@
 #include <arch/x86_64/cpu/gdt.h>
 
 void gdt_flush(struct GDTR *gdtr_ptr) {
-    ;
+    asm volatile (
+        "lgdt (%0)"
+	:
+	: "r"(gdtr_ptr)
+	: "memory"
+    );
 }
