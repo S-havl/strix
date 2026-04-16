@@ -3,7 +3,7 @@
 #include "kprintf.h"
 
 #define VGA_MEMORY 0xB8000
-#define VGA_COLOR 0x0F
+#define VGA_COLOR 0x0A
 #define VGA_WIDTH 80
 
 static volatile uint16_t* const vga = (volatile uint16_t*)VGA_MEMORY;

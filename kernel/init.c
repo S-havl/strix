@@ -8,6 +8,8 @@
 #include <kprintf.h>
 
 void kernel_init() {
+    clear_screen();
+
     kprintf("Starting kernel...\n");
     kprintf("Hello world from the kernel!\n");
     kprintf("Test1.\n");
