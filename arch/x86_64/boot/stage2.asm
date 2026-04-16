@@ -257,7 +257,7 @@ gdt64_descriptor:
 
 ; ---------------- CONSTANTS / DATA PM ----------------
 VGA_MEMORY equ 0xB8000
-COLOR equ 0x0D
+COLOR equ 0x0A
 entering_lm_msg db "Entering long mode...", 0
 elf_ok_msg db "ELF successfully detected. Entry point: 0x", 0
 elf_fail_msg db "The file is not ELF :C", 0
