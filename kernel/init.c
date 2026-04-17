@@ -22,16 +22,16 @@ void kernel_init() {
     kprintf("TSS initialized.\n");
     kprintf("CS reloaded.\n");
 
-    // idt_init();
+    // init_idt();
     // kprintf("IDT initialized\n");
 
-    // pic_init();
+    // init_pic();
     // kprintf("PIC initialized\n");
     
-    // pit_init();
+    // init_pit();
     // kprintf("PIT initialized\n");
 
-    // keyboard_init();
+    // init_keyboard();
     // kprintf("KEYBOARD initialized\n");
 
     // asm volatile("sti");
