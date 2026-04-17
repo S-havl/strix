@@ -12,5 +12,11 @@ struct IDTEntry {
     uint32_t zero;
 };
 
+struct IDTR {
+    uint16_t limit;
+    uint64_t base;
+};
+#pragma pack(pop)
+
 
 
