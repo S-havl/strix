@@ -17,6 +17,7 @@ At the moment the kernel boots successfully and executes code in the kernel entr
 Example kernel output:
 
 ```
+Starting kernel...
 Hello world from the kernel!
 Test1.
 Test2.
@@ -141,6 +142,7 @@ Current kernel entry point:
 void _start(void) {
     clear_screen();
 
+    kprintf("Starting kernel...")
     kprintf("Hello world from the kernel!\n");
     kprintf("Test1.\n");
     kprintf("Test2.\n");
