@@ -1,9 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-struct IDTEntry {
-    
+void init_idt();    
 
-};
 
 
