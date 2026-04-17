@@ -19,10 +19,16 @@ struct GDTEntry {
     uint8_t  granularity;
     uint8_t  base_high;
 };
+
+struct GDTR {
+    uint16_t limit;
+    uint64_t base;
+};
 #pragma pack(pop)
 
 static struct GDTEntry gdt[GDT_SIZE] __attribute__((aligned(8)));
 static struct GDTR gdtr;
+void gdt_flush(void *gdtr_ptr);
 
 
 static void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
