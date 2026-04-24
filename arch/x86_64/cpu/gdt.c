@@ -61,7 +61,7 @@ static void set_tss_descriptor(int index, uint64_t base, uint32_t limit) {
     gdt64[index + 1] = high;
 }
 
-void init_gdt(void) {
+void gdt_init(void) {
     gdtr.limit = sizeof(gdt) - 1;
     gdtr.base  = (uint64_t)&gdt;
 
