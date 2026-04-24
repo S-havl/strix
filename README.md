@@ -8,6 +8,8 @@ This repository contains the early development of the system including the bootl
 
 ---
 
+![QEMU boot demonstration](images/s-havlos_test.png)
+
 # Current Status
 
 The project is in an early stage of development.
