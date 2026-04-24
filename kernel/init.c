@@ -17,21 +17,21 @@ void kernel_init() {
     kprintf("[DATA] Test3.\n");
     kprintf("[DATA] Everything perfect.\n");
 
-    init_gdt();
+    gdt_init();
     kprintf("[INFO] GDT initialized.\n");
     kprintf("[INFO] TSS initialized.\n");
     kprintf("[INFO] CS reloaded.\n");
 
-    // init_idt();
+    // idt_init();
     // kprintf("[INFO] IDT initialized\n");
 
-    // init_pic();
+    // pic_init();
     // kprintf("[INFO] PIC initialized\n");
     
-    // init_pit();
+    // pit_init();
     // kprintf("[INFO] PIT initialized\n");
 
-    // init_keyboard();
+    // keyboard_init();
     // kprintf("[INFO] KEYBOARD initialized\n");
 
     // asm volatile("sti");
