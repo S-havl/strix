@@ -2,6 +2,7 @@
 #include <arch/x86_64/interrupts/idt.h>
 
 #define IDT_SIZE 256
+#define KERNEL_CS 0x08
 
 #pragma pack(push, 1)
 struct IDTEntry {
@@ -33,5 +34,14 @@ static void set_idt_entry(struct IDTEntry *entry, uint64_t offset, uint16_t sele
     entry->offset_mid      = (offset >> 16) & 0xFFFF;
     entry->offset_high     = (offset >> 32) & 0xFFFFFFFF;
     entry->zero            = 0;
+}
+
+void idt_init(void) {
+    idtr.limit = sizeof(idt) - 1;
+    idtr.base  = (uint64_t)&idt;
+
+    for (uint32_t i = 0; i < IDT_SIZE; i++) {
+        set_itd_entry(&idt[i], /* handler offset */, KERNEL_CS, 0, 0x8E);
+    }
 }
 
