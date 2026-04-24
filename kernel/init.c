@@ -10,32 +10,32 @@
 void kernel_init() {
     clear_screen();
 
-    kprintf("Starting kernel...\n");
-    kprintf("Hello world from the kernel!\n");
-    kprintf("Test1.\n");
-    kprintf("Test2.\n");
-    kprintf("Test3.\n");
-    kprintf("Everything perfect.\n");
+    kprintf("[DATA] Starting kernel...\n");
+    kprintf("[DATA] Hello world from the kernel!\n");
+    kprintf("[DATA] Test1.\n");
+    kprintf("[DATA] Test2.\n");
+    kprintf("[DATA] Test3.\n");
+    kprintf("[DATA] Everything perfect.\n");
 
     init_gdt();
-    kprintf("GDT initialized.\n");
-    kprintf("TSS initialized.\n");
-    kprintf("CS reloaded.\n");
+    kprintf("[INFO] GDT initialized.\n");
+    kprintf("[INFO] TSS initialized.\n");
+    kprintf("[INFO] CS reloaded.\n");
 
     // init_idt();
-    // kprintf("IDT initialized\n");
+    // kprintf("[INFO] IDT initialized\n");
 
     // init_pic();
-    // kprintf("PIC initialized\n");
+    // kprintf("[INFO] PIC initialized\n");
     
     // init_pit();
-    // kprintf("PIT initialized\n");
+    // kprintf("[INFO] PIT initialized\n");
 
     // init_keyboard();
-    // kprintf("KEYBOARD initialized\n");
+    // kprintf("[INFO] KEYBOARD initialized\n");
 
     // asm volatile("sti");
-    // kprintf("Interruptions enable.\n");
+    // kprintf("[INFO] Interruptions enable.\n");
     
     while(1) {
         asm volatile("hlt");
