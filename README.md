@@ -17,13 +17,15 @@ At the moment the kernel boots successfully and executes code in the kernel entr
 Example kernel output:
 
 ```
-Starting kernel...
-Hello world from the kernel!
-Test1.
-Test2.
-Test3.
-Everything perfect.
-CS reloaded.
+[DATA] Starting kernel...
+[DATA] Hello world from the kernel!
+[DATA] Test1.
+[DATA] Test2.
+[DATA] Test3.
+[DATA] Everything perfect.
+[INFO] GDT initialized.
+[INFO] TSS initialized.
+[INFO] CS reloaded.
 Entering long mode...
 ELF successfully detected. Entry point: 0x
 0010006C
