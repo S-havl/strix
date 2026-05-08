@@ -90,9 +90,8 @@ void gdt_init(void) {
     
 
     asm volatile ("" ::: "memory");
-    
+    */   
 
     tss_flush(0x28);
-    */
 
 }

@@ -41,7 +41,7 @@ void idt_init(void) {
     idtr.base  = (uint64_t)&idt;
 
     for (uint32_t i = 0; i < IDT_SIZE; i++) {
-        set_itd_entry(&idt[i], /* handler offset */, KERNEL_CS, 0, 0x8E);
+        set_idt_entry(&idt[i], /* handler offset */, KERNEL_CS, 0, 0x8E);
     }
 }
 

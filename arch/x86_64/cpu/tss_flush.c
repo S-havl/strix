@@ -3,9 +3,9 @@
 
 void tss_flush(uint16_t selector){
     asm volatile (
-        "ltr %0"
+        "ltr %%ax"
 	:
-	: "r"(selector)
+	: "a"(selector)
 	: "memory"
     );
 }
