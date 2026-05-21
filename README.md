@@ -1,6 +1,6 @@
-# S-Havlos
+# STRIX
 
-S-Havlos is an experimental operating system written in C and x86_64 assembly.
+STRIX is an experimental operating system written in C and x86_64 assembly.
 
 The goal of the project is to explore low-level system development by implementing a custom boot process, kernel architecture, drivers, and system libraries from scratch.
 
@@ -244,7 +244,7 @@ docs/
 
 # Purpose
 
-S-Havlos is primarily a learning project intended to explore:
+STRIX is primarily a learning project intended to explore:
 
 * operating system architecture
 * bootloader development
