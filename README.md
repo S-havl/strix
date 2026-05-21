@@ -256,5 +256,5 @@ STRIX is primarily a learning project intended to explore:
 
 # License
 
-MIT
+GNU General Public License v3.0
 
