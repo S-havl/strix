@@ -8,7 +8,7 @@ This repository contains the early development of the system including the bootl
 
 ---
 
-![QEMU boot demonstration](images/s-havlos_test.png)
+![QEMU boot demonstration](images/strix_test.png)
 
 # Current Status
 
