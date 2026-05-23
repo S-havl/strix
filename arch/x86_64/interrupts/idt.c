@@ -36,12 +36,14 @@ static void set_idt_entry(struct IDTEntry *entry, uint64_t offset, uint16_t sele
     entry->zero            = 0;
 }
 
+extern void isr_stub(void);
+
 void idt_init(void) {
     idtr.limit = sizeof(idt) - 1;
     idtr.base  = (uint64_t)&idt;
 
     for (uint32_t i = 0; i < IDT_SIZE; i++) {
-        set_idt_entry(&idt[i], /* handler offset */, KERNEL_CS, 0, 0x8E);
+        set_idt_entry(&idt[i], (uint64_t)(uintptr_t)isr_stub, KERNEL_CS, 0, 0x8E);
     }
 }
 
