@@ -8,7 +8,7 @@ This repository contains the early development of the system including the bootl
 
 ---
 
-![QEMU boot demonstration](images/strix_test.png)
+![QEMU boot demonstration](images/idt_test.png)
 
 # Current Status
 
@@ -28,6 +28,7 @@ Example kernel output:
 [INFO] GDT initialized.
 [INFO] TSS initialized.
 [INFO] CS reloaded.
+[INFO] IDT initialized.
 Entering long mode...
 ELF successfully detected. Entry point: 0x
 0010006C

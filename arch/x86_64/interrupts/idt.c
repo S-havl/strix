@@ -46,6 +46,6 @@ void idt_init(void) {
         set_idt_entry(&idt[i], (uint64_t)(uintptr_t)isr_stub, KERNEL_CS, 0, 0x8E);
     }
     
-    __asm__ volatile ("lidt %0" : : "m"(IDTR));
+    __asm__ volatile ("lidt %0" : : "m"(idtr));
 }
 
