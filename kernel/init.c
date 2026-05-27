@@ -1,5 +1,5 @@
 #include <arch/x86_64/cpu/gdt.h>
-// #include <arch/x86_64/idt.h>
+#include <arch/x86_64/interrupts/idt.h>
 // #include <arch/x86_64/pic.h>
 
 // #include <drivers/timer/pit.h>
@@ -22,8 +22,10 @@ void kernel_init() {
     kprintf("[INFO] TSS initialized.\n");
     kprintf("[INFO] CS reloaded.\n");
 
-    // idt_init();
-    // kprintf("[INFO] IDT initialized\n");
+    idt_init();
+    kprintf("[INFO] IDT initialized.\n");
+
+    asm volatile ("int $0");
 
     // pic_init();
     // kprintf("[INFO] PIC initialized\n");
