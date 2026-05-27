@@ -25,7 +25,7 @@ void kernel_init() {
     idt_init();
     kprintf("[INFO] IDT initialized.\n");
 
-    asm volatile ("int $0");
+    asm volatile ("int $0");    
 
     // pic_init();
     // kprintf("[INFO] PIC initialized\n");

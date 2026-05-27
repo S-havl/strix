@@ -77,8 +77,6 @@ void gdt_init(void) {
 
     gdt_flush(&gdtr);
 
-    // far jump
-    /*
     asm volatile (
         "pushq $0x08\n"
 	"lea 1f(%%rip), %%rax\n"
@@ -88,10 +86,6 @@ void gdt_init(void) {
 	::: "rax", "memory"
     );
     
-
-    asm volatile ("" ::: "memory");
-    */   
-
     tss_flush(0x28);
 
 }
