@@ -326,7 +326,7 @@ long_mode_entry:
 	
 	mov	rsp, 0x90000
 	and	rsp, -16
-	
+
 	mov	rbx, ELF64
 	
 	movzx	r8, word [rbx + E_PHNUM]	; e_phnum
