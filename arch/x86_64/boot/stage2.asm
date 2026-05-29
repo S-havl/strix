@@ -44,6 +44,8 @@ stage2_start:
 	mov	bx, 0x4118
 	int	0x10
 
+	cli
+	
 	mov	eax, [vbe_mode_info + 0x28]
 	mov	[framebuffer_phys], eax
 
@@ -55,7 +57,6 @@ stage2_start:
 
 	mov	ax, [vbe_mode_info + 0x10]
 	mov	[screen_pitch], ax
-
 	
 	jmp	enter_protect_mode	; Transition to PM
 
@@ -260,9 +261,18 @@ setup_long_mode:
 ; map framebuffer at 0xE0000000
 ; ===========================================
 
-	mov	eax, 0xE0000083
+	mov	eax, [framebuffer_phys]
+	or	eax, 0x83
+	xor	edx, edx
 	mov	[edi + 64], eax
-	mov	dword [edi + 68], 0
+	mov	[edi + 68], edx
+
+	mov	eax, [framebuffer_phys]
+	add	eax, 0x00200000
+	or	eax, 0x83
+	xor	edx, edx
+	mov	[edi + 72], eax
+	mov	[edi + 76], edx
 	
 	mov	edi, 0x5000
 	
