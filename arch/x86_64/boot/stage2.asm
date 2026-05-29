@@ -103,7 +103,7 @@ screen_width:	dw	0
 
 screen_height:	dw	0
 
-scree_pitch:	dw	0
+screen_pitch:	dw	0
 
 boot_drive:	db	0
 
@@ -255,6 +255,14 @@ setup_long_mode:
 	mov	eax, 0x00E00083   ; 14–16MB
 	mov	[edi+56], eax
 	mov	dword [edi+60], 0
+
+; ===========================================
+; map framebuffer at 0xE0000000
+; ===========================================
+
+	mov	eax, 0xE0000083
+	mov	[edi + 64], eax
+	mov	dword [edi + 68], 0
 	
 	mov	edi, 0x5000
 	
