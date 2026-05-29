@@ -30,6 +30,32 @@ stage2_start:
 	mov	dh, 0
 	mov	dl, [boot_drive]
 	int	0x13
+
+; ========================================================== 
+; SET VBE MODE 1024x768x32
+; ==========================================================
+
+	mov	ax, 0x4F01
+	mov	cx, 0x118
+	mov	di, vbe_mode_info
+	int	0x10
+
+	mov	ax, 0x4F02
+	mov	bx, 0x4118
+	int	0x10
+
+	mov	eax, [vbe_mode_info + 0x28]
+	mov	[framebuffer_phys], eax
+
+	mov	ax, [vbe_mode_info + 0x12]
+	mov	[screen_width], ax
+
+	mov	ax, [vbe_mode_info + 0x14]
+	mov	[screen_height], ax
+
+	mov	ax, [vbe_mode_info + 0x10]
+	mov	[screen_pitch], ax
+
 	
 	jmp	enter_protect_mode	; Transition to PM
 
@@ -68,6 +94,16 @@ gdt_descriptor:
 
 CODE_SEL	equ	1 << 3
 DATA_SEL	equ	2 << 3
+
+vbe_mode_info:	times	256	db	0
+
+framebuffer_phys:	dd	0
+
+screen_width:	dw	0
+
+screen_height:	dw	0
+
+scree_pitch:	dw	0
 
 boot_drive:	db	0
 
