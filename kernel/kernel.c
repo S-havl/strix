@@ -2,5 +2,4 @@
 
 void _start(void) {
     kernel_init();
-    asm("int3");
 }

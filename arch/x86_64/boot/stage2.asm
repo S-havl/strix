@@ -31,33 +31,6 @@ stage2_start:
 	mov	dl, [boot_drive]
 	int	0x13
 
-; ========================================================== 
-; SET VBE MODE 1024x768x32
-; ==========================================================
-
-	mov	ax, 0x4F01
-	mov	cx, 0x118
-	mov	di, vbe_mode_info
-	int	0x10
-
-	mov	ax, 0x4F02
-	mov	bx, 0x4118
-	int	0x10
-
-	cli
-	
-	mov	eax, [vbe_mode_info + 0x28]
-	mov	[framebuffer_phys], eax
-
-	mov	ax, [vbe_mode_info + 0x12]
-	mov	[screen_width], ax
-
-	mov	ax, [vbe_mode_info + 0x14]
-	mov	[screen_height], ax
-
-	mov	ax, [vbe_mode_info + 0x10]
-	mov	[screen_pitch], ax
-	
 	jmp	enter_protect_mode	; Transition to PM
 
 ; ==========================================================
@@ -96,16 +69,6 @@ gdt_descriptor:
 CODE_SEL	equ	1 << 3
 DATA_SEL	equ	2 << 3
 
-vbe_mode_info:	times	256	db	0
-
-framebuffer_phys:	dd	0
-
-screen_width:	dw	0
-
-screen_height:	dw	0
-
-screen_pitch:	dw	0
-
 boot_drive:	db	0
 
 ; ==================================================
@@ -121,7 +84,7 @@ protected_entry:
 	mov	fs, ax
 	mov	gs, ax
 	mov	ss, ax
-	mov	esp, 0x9000
+	mov	esp, 0x90000
 
 	mov	esi, entering_lm_msg
 	call	print_entering_msg
@@ -257,23 +220,6 @@ setup_long_mode:
 	mov	[edi+56], eax
 	mov	dword [edi+60], 0
 
-; ===========================================
-; map framebuffer at 0xE0000000
-; ===========================================
-
-	mov	eax, [framebuffer_phys]
-	or	eax, 0x83
-	xor	edx, edx
-	mov	[edi + 64], eax
-	mov	[edi + 68], edx
-
-	mov	eax, [framebuffer_phys]
-	add	eax, 0x00200000
-	or	eax, 0x83
-	xor	edx, edx
-	mov	[edi + 72], eax
-	mov	[edi + 76], edx
-	
 	mov	edi, 0x5000
 	
 	mov	dword [edi], 0

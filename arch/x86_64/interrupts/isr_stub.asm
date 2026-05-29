@@ -3,8 +3,8 @@ global	isr_stub
 section	.text
 
 isr_stub:
-	mov	edi, 0x01000000
-	mov	dword [edi], 0x00FFFFFF
+	mov	byte [0xB8000], 'X'
+	mov	byte [0xB8001], 0x4F
 
 .hang:
 	hlt
