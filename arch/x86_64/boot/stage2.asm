@@ -31,6 +31,23 @@ stage2_start:
 	mov	dl, [boot_drive]
 	int	0x13
 
+; ==========================================================
+; SET VBE MODE 1024x768x32 
+; ==========================================================
+
+	mov ax, 0x4F01
+	mov cx, 0x0118
+	mov di, vbe_mode_info_block
+	
+	push ds
+	pop es
+	
+	int 0x10
+
+	mov ax, 0x4F02
+	mov bx, 0x4118
+	int 0x10
+
 	jmp	enter_protect_mode	; Transition to PM
 
 ; ==========================================================
@@ -70,6 +87,7 @@ CODE_SEL	equ	1 << 3
 DATA_SEL	equ	2 << 3
 
 boot_drive:	db	0
+vbe_mode_info_block:	times	256	db	0
 
 ; ==================================================
 ;                 PROTECTED MODE
