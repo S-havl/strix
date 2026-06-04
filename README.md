@@ -1,5 +1,7 @@
 # STRIX
 
+**Current Version:** v0.0.1
+
 STRIX is an experimental operating system written in C and x86_64 assembly.
 
 The goal of the project is to explore low-level system development by implementing a custom boot process, kernel architecture, drivers, and system libraries from scratch.
