@@ -1,0 +1,7 @@
+#pragma once
+
+#define STRIX_VERSION_MAJOR 0
+#define STRIX_VERSION_MINOR 0
+#define STRIX_VERSION_PATCH 1
+
+#define STRIX_VERSION_STRING "0.0.1" 
