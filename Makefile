@@ -19,9 +19,9 @@ BOOT_BIN = $(patsubst %.asm,$(BUILD)/%.bin,$(BOOT_SRC))
 
 # Kernel C files
 SRC = \
-kernel/init.c \
-kernel/kernel.c \
-kernel/panic.c \
+kernel/core/init.c \
+kernel/core/kernel.c \
+kernel/core/panic.c \
 arch/x86_64/cpu/gdt.c \
 arch/x86_64/cpu/gdt_flush.c \
 arch/x86_64/cpu/tss.c \
