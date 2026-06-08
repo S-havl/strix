@@ -29,7 +29,7 @@ isr_common:
 	and	rsp, -16
 
 	mov	rdi, rsp
-;	call	interrupt
+;	call	interrupt_dispatcher
 
 	mov	rsp, rax
 
