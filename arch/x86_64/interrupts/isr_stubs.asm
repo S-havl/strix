@@ -7,6 +7,10 @@ isr0:
 	mov	byte [0xB8000], 'X'
 	mov	byte [0xB8001], 0x4F
 
+;	push	0
+;	push	0
+;	jmp	isr_common
+
 isr_common:
 	push	r15
 	push	r14
@@ -25,10 +29,11 @@ isr_common:
 	push	rbx
 	push	rax
 
+	mov	rdi, rsp
+
 	mov	rax, rsp
 	and	rsp, -16
 
-	mov	rdi, rsp
 ;	call	interrupt_dispatcher
 
 	mov	rsp, rax
