@@ -8,7 +8,6 @@ The goal of the project is to explore low-level system development by implementi
 
 This repository contains the early development of the system including the bootloader, kernel core, basic drivers, filesystem foundations, and supporting libraries.
 
----
 
 ![QEMU boot demonstration](images/idt_test.png)
 
@@ -36,7 +35,6 @@ ELF successfully detected. Entry point: 0x
 0010006C
 ```
 
----
 
 # System Architecture
 
@@ -63,7 +61,6 @@ Kernel Output (VGA)
 
 The bootloader loads the kernel and transfers control to the kernel entry point `_start`.
 
----
 
 # Boot Flow
 
@@ -97,7 +94,6 @@ The bootloader loads the kernel and transfers control to the kernel entry point 
 +----------------------+
 ```
 
----
 
 # Features (Current)
 
@@ -139,7 +135,6 @@ Build tools
 * filesystem builder
 * ISO generation scripts
 
----
 
 # Kernel Example
 
@@ -164,7 +159,6 @@ void _start(void) {
 
 The kernel clears the screen and prints diagnostic messages using `kprintf`.
 
----
 
 # Project Structure
 
@@ -190,7 +184,6 @@ arch/x86_64
 
 This directory contains the bootloader and architecture-dependent components.
 
----
 
 # Build
 
@@ -218,7 +211,6 @@ Debug the kernel using GDB:
 make gdb
 ```
 
----
 
 # Tools
 
@@ -233,7 +225,6 @@ tools/
 
 These scripts automate the process of creating bootable images.
 
----
 
 # Documentation
 
@@ -243,7 +234,6 @@ Additional notes and technical documentation are available in:
 docs/
 ```
 
----
 
 # Purpose
 
@@ -255,7 +245,6 @@ STRIX is primarily a learning project intended to explore:
 * hardware interaction
 * filesystem design
 
----
 
 # License
 
