@@ -3,57 +3,56 @@ section	.text
 global	isr0
 global	isr_common
 
+extern	interrupt_dispatcher
+
 isr0:
 	mov	byte [0xB8000], 'X'
 	mov	byte [0xB8001], 0x4F
 
-;	push	0
-;	push	0
-;	jmp	isr_common
+	push	qword	0
+	push	qword	0
+	jmp	isr_common
 
 isr_common:
-	push	r15
-	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
-	push	r9
-	push	r8
+	cld
 
-	push	rdi
-	push	rsi
-	push	rbp
-	push	rdx
-	push	rcx
-	push	rbx
 	push	rax
+	push	rbx
+	push	rcx
+	push	rdx
+	push	rbp
+	push	rsi
+	push	rdi
+
+	push	r8
+	push	r9
+	push	r10
+	push	r11
+	push	r12
+	push	r13
+	push	r14
+	push	r15
 
 	mov	rdi, rsp
 
-	mov	rax, rsp
-	and	rsp, -16
+	call	interrupt_dispatcher
 
-;	call	interrupt_dispatcher
-
-	mov	rsp, rax
-
-	pop	rax
-	pop	rbx
-	pop	rcx
-	pop	rdx
-	pop	rbp
-	pop	rsi
-	pop	rdi
-
-	pop	r8
-	pop	r9
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
-	pop	r14
 	pop	r15
+	pop	r14
+	pop	r13
+	pop	r12
+	pop	r11
+	pop	r10
+	pop	r9
+	pop	r8
+
+	pop	rdi
+	pop	rsi
+	pop	rbp
+	pop	rdx
+	pop	rcx
+	pop	rbx
+	pop	rax
 
 	add	rsp, 16
 

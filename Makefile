@@ -22,6 +22,7 @@ SRC = \
 kernel/core/init.c \
 kernel/core/kernel.c \
 kernel/core/panic.c \
+kernel/core/interrupt.c \
 arch/x86_64/cpu/gdt.c \
 arch/x86_64/cpu/gdt_flush.c \
 arch/x86_64/cpu/tss.c \
