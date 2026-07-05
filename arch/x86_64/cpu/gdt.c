@@ -31,7 +31,8 @@ static struct GDTR gdtr;
 void gdt_flush(void *gdtr_ptr);
 
 
-static void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
+static void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags)
+{
     *entry = (struct GDTEntry){0};
 
     entry->base_low    = base & 0xFFFF;
@@ -43,7 +44,8 @@ static void set_gdt_entry(struct GDTEntry *entry, uint32_t base, uint32_t limit,
 }
 
 
-static void set_tss_descriptor(int index, uint64_t base, uint32_t limit) {
+static void set_tss_descriptor(int index, uint64_t base, uint32_t limit)
+{
     uint64_t *gdt64 = (uint64_t*)gdt;
 
     uint64_t low = 0;
@@ -61,7 +63,8 @@ static void set_tss_descriptor(int index, uint64_t base, uint32_t limit) {
     gdt64[index + 1] = high;
 }
 
-void gdt_init(void) {
+void gdt_init(void)
+{
     gdtr.limit = sizeof(gdt) - 1;
     gdtr.base  = (uint64_t)&gdt;
 

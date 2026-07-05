@@ -24,7 +24,8 @@ struct IDTR {
 struct IDTEntry idt[IDT_SIZE];
 struct IDTR idtr;
 
-static void set_idt_entry(struct IDTEntry *entry, uint64_t offset, uint16_t selector, uint8_t ist, uint8_t type_attributes) {
+static void set_idt_entry(struct IDTEntry *entry, uint64_t offset, uint16_t selector, uint8_t ist, uint8_t type_attributes)
+{
     *entry = (struct IDTEntry){0};
 
     entry->offset_low      = offset & 0xFFFF;
@@ -38,7 +39,8 @@ static void set_idt_entry(struct IDTEntry *entry, uint64_t offset, uint16_t sele
 
 extern void isr0(void);
 
-void idt_init(void) {
+void idt_init(void)
+{
     idtr.limit = sizeof(idt) - 1;
     idtr.base  = (uint64_t)&idt;
 
