@@ -28,6 +28,7 @@ typedef struct {
     uint64_t ss;
 } __attribute__((packed)) InterruptFrame;
 
-void interrupt_dispatcher(InterruptFrame *frame) {
+void interrupt_dispatcher(InterruptFrame *frame)
+{
     // unused
 }

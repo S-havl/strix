@@ -7,7 +7,8 @@
 
 #include <kprintf.h>
 
-void kernel_init() {
+void kernel_init()
+{
     clear_screen();
 
     kprintf("[DATA] Starting kernel...\n");
