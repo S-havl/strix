@@ -30,5 +30,7 @@ typedef struct {
 
 void interrupt_dispatcher(InterruptFrame *frame)
 {
-    // unused
+    if (frame->int_no < 32) {
+        // unused
+    }
 }
