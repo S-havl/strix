@@ -5,7 +5,7 @@
 #define KERNEL_CS 0x08
 
 #pragma pack(push, 1)
-struct IDTEntry {
+typedef struct IDTEntry {
     uint16_t offset_low;
     uint16_t selector;
     uint8_t  ist;
@@ -13,20 +13,20 @@ struct IDTEntry {
     uint16_t offset_mid;
     uint32_t offset_high;
     uint32_t zero;
-};
+} IDTEntry_t;
 
-struct IDTR {
+typedef struct IDTR {
     uint16_t limit;
     uint64_t base;
-};
+} IDTR_t;
 #pragma pack(pop)
 
-struct IDTEntry idt[IDT_SIZE];
-struct IDTR idtr;
+IDTEntry_t idt[IDT_SIZE];
+IDTR_t idtr;
 
-static void set_idt_entry(struct IDTEntry *entry, uint64_t offset, uint16_t selector, uint8_t ist, uint8_t type_attributes)
+static void set_idt_entry(IDTEntry_t *entry, uint64_t offset, uint16_t selector, uint8_t ist, uint8_t type_attributes)
 {
-    *entry = (struct IDTEntry){0};
+    *entry = (IDTEntry_t){0};
 
     entry->offset_low      = offset & 0xFFFF;
     entry->selector        = selector;
