@@ -9,9 +9,9 @@ The goal of the project is to explore low-level system development by implementi
 This repository contains the early development of the system including the bootloader, kernel core, basic drivers, filesystem foundations, and supporting libraries.
 
 <p align="center">
-  <img src="images/idt_test.png" alt="idt test" width="50%">
+  <img src="images/idt_test.png" alt="idt test" width="49%">
   &nbsp;
-  <img src="images/idt_test_uwu.png" alt="idt test uwu" width="50%">
+  <img src="images/idt_test_uwu.png" alt="idt test uwu" width="49%">
 </p>
 
 # Current Status
