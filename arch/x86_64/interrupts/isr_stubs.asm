@@ -6,9 +6,6 @@ global	isr_common
 extern	interrupt_dispatcher
 
 isr0:
-	mov	byte [0xB8000], 'X'
-	mov	byte [0xB8001], 0x4F
-
 	push	qword	0
 	push	qword	0
 	jmp	isr_common

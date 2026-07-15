@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <kprintf.h>
 
 typedef struct {
     uint64_t r15, r14, r13, r12, r11, r10, r9, r8;
@@ -10,9 +11,12 @@ typedef struct {
     uint64_t rip, cs, rflags, rsp, ss;
 } __attribute__((packed)) interrupt_frame_t;
 
+static volatile uint16_t* const vga = (volatile uint16_t*)0xB8000;
+
 void interrupt_dispatcher(interrupt_frame_t *frame)
 {
-    if (frame->int_no < 32) {
-        // unused
+    switch (frame->int_no) {
+        case 0:
+            vga[0] = 0x4F58;
     }
 }
