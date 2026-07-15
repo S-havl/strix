@@ -17,6 +17,10 @@ void interrupt_dispatcher(interrupt_frame_t *frame)
 {
     switch (frame->int_no) {
         case 0:
-            vga[0] = 0x4F58;
+            vga[0] = 0x4F55;
+        case 1:
+            vga[2] = 0x4F57;
+        case 2:
+            vga[4] = 0x4F55;
     }
 }
