@@ -1,6 +1,8 @@
 section	.text
 
 global	isr0
+global	isr1
+global	isr2
 global	isr_common
 
 extern	interrupt_dispatcher
@@ -8,6 +10,16 @@ extern	interrupt_dispatcher
 isr0:
 	push	qword	0
 	push	qword	0
+	jmp	isr_common
+
+isr1:
+	push	qword	0
+	push	qword	1
+	jmp	isr_common
+
+isr2:
+	push	qword	0
+	push	qword	2
 	jmp	isr_common
 
 isr_common:

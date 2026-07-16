@@ -38,15 +38,17 @@ static void set_idt_entry(IDTEntry_t *entry, uint64_t offset, uint16_t selector,
 }
 
 extern void isr0(void);
+extern void isr1(void);
+extern void isr2(void);
 
 void idt_init(void)
 {
     idtr.limit = sizeof(idt) - 1;
     idtr.base  = (uint64_t)&idt;
 
-    for (uint32_t i = 0; i < IDT_SIZE; i++) {
-        set_idt_entry(&idt[i], (uint64_t)(uintptr_t)isr0, KERNEL_CS, 0, 0x8E);
-    }
+    set_idt_entry(&idt[0], (uint64_t)(uintptr_t)isr0, KERNEL_CS, 0, 0x8E);
+    set_idt_entry(&idt[1], (uint64_t)(uintptr_t)isr1, KERNEL_CS, 0, 0x8E);
+    set_idt_entry(&idt[2], (uint64_t)(uintptr_t)isr2, KERNEL_CS, 0, 0x8E);
     
     __asm__ volatile ("lidt %0" : : "m"(idtr));
 }

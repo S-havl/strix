@@ -1,5 +1,6 @@
 #include <arch/x86_64/cpu/gdt.h>
 #include <arch/x86_64/interrupts/idt.h>
+#include <kernel/core/interrupt.h>
 // #include <arch/x86_64/pic.h>
 
 // #include <drivers/timer/pit.h>
@@ -25,6 +26,9 @@ void kernel_init()
 
     idt_init();
     kprintf("[INFO] IDT initialized.\n");
+
+    interrupt_handlers_init();
+    kprintf("[INFO] IDT HANDLERS initialized.\n");
 
     asm volatile ("int $0");
     asm volatile ("int $1");
