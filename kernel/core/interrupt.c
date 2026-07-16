@@ -17,7 +17,7 @@ typedef struct {
 typedef void (*interrupt_handler_t)(interrupt_frame_t *frame);
 interrupt_handler_t interrupt_handlers[MAX_GATES] = {NULL};
 
-void register_isr_handler(uint8_t n, interrupt_handler_t handler);
+void register_isr_handler(uint8_t n, interrupt_handler_t handler)
 {
     isr_handlers[n] = handler;
 }
@@ -33,6 +33,6 @@ void interrupt_dispatcher(interrupt_frame_t *frame)
         interrupt_handler_t handler = interrupt_handlers[frame->int_no];
         handler(frame);
     } else {
-        // unused
+        kprintf("Unhandled interrupt\n");
     }
 }
