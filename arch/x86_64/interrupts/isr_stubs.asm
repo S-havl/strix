@@ -43,8 +43,12 @@ isr_common:
 	push	r15
 
 	mov	rdi, rsp
+	mov	rbp, rsp
+	and	rsp, -16
 
 	call	interrupt_dispatcher
+
+	mov	rsp, rbp
 
 	pop	r15
 	pop	r14

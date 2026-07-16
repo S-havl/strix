@@ -49,7 +49,7 @@ void idt_init(void)
     set_idt_entry(&idt[0], (uint64_t)(uintptr_t)isr0, KERNEL_CS, 0, 0x8E);
     set_idt_entry(&idt[1], (uint64_t)(uintptr_t)isr1, KERNEL_CS, 0, 0x8E);
     set_idt_entry(&idt[2], (uint64_t)(uintptr_t)isr2, KERNEL_CS, 0, 0x8E);
-    
-    __asm__ volatile ("lidt %0" : : "m"(idtr));
+
+    __asm__ volatile ("lidt %0" : : "m"(idtr) : "memory");
 }
 

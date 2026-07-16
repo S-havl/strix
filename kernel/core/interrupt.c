@@ -50,7 +50,9 @@ void interrupt_dispatcher(interrupt_frame_t *frame)
 {
     if (frame->int_no >= MAX_GATES) {
         kprintf("Kernel panic: invalid interrupt number!\n");
-        __asm__ volatile ("cli; hlt");
+        for (;;) {
+            __asm__ volatile ("cli; hlt");
+	}
     }
 
     if (interrupt_handlers[frame->int_no] != NULL) {
