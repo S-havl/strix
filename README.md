@@ -33,6 +33,7 @@ Example kernel output:
 [INFO] TSS initialized.
 [INFO] CS reloaded.
 [INFO] IDT initialized.
+[INFO] IDT HANDLERS initialized.
 Entering long mode...
 ELF successfully detected. Entry point: 0x
 0010006C
