@@ -76,3 +76,13 @@ isr_common:
 	add	rsp, 16
 
 	iretq
+
+global	isr_stub_table
+
+section .data
+align	8
+isr_stub_table:
+	dq	isr0
+	dq	isr1
+	dq	isr2
+	dq	isr3
