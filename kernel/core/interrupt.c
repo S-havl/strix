@@ -7,7 +7,6 @@
 
 #define MAX_GATES 256
 
-typedef void (*interrupt_handler_t)(interrupt_frame_t *frame);
 interrupt_handler_t interrupt_handlers[MAX_GATES] = {NULL};
 
 void register_interrupt_handler(uint8_t n, interrupt_handler_t handler)
