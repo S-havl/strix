@@ -35,12 +35,18 @@ void breakpoint_handler(interrupt_frame_t *frame)
     kprintf("#BP\n");
 }
 
+void overflow_handler(interrupt_frame_t *frame)
+{
+    kprintf("#OF\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
     register_interrupt_handler(1, debug_exception_handler);
     register_interrupt_handler(2, nmi_interrupt_handler);
     register_interrupt_handler(3, breakpoint_handler);
+    register_interrupt_handler(4, overflow_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
