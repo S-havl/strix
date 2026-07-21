@@ -40,6 +40,11 @@ void overflow_handler(interrupt_frame_t *frame)
     kprintf("#OF\n");
 }
 
+void bound_range_exceeded_handler(interrupt_frame_t *frame)
+{
+    kprintf("#BR\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -47,6 +52,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(2, nmi_interrupt_handler);
     register_interrupt_handler(3, breakpoint_handler);
     register_interrupt_handler(4, overflow_handler);
+    register_interrupt_handler(5, bound_range_exceeded_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
