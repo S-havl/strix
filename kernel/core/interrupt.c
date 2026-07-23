@@ -45,6 +45,11 @@ void bound_range_exceeded_handler(interrupt_frame_t *frame)
     kprintf("#BR\n");
 }
 
+void invalid_opcode_handler(interrupt_frame_t *frame)
+{
+    kprintf("#UD\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -53,6 +58,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(3, breakpoint_handler);
     register_interrupt_handler(4, overflow_handler);
     register_interrupt_handler(5, bound_range_exceeded_handler);
+    register_interrupt_handler(6, invalid_opcode_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
