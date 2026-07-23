@@ -43,6 +43,11 @@ isr6:
 	push	qword	6
 	jmp	isr_common
 
+isr7:
+	push	qword	0
+	push	qword	7
+	jmp	isr_common
+
 isr_common:
 	cld
 
@@ -104,3 +109,4 @@ isr_stub_table:
 	dq	isr4
 	dq	isr5
 	dq	isr6
+	dq	isr7

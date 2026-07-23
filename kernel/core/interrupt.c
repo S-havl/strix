@@ -50,6 +50,11 @@ void invalid_opcode_handler(interrupt_frame_t *frame)
     kprintf("#UD\n");
 }
 
+void device_not_available_handler(interrupt_frame_t *frame)
+{
+    kprintf("#NM\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -59,6 +64,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(4, overflow_handler);
     register_interrupt_handler(5, bound_range_exceeded_handler);
     register_interrupt_handler(6, invalid_opcode_handler);
+    register_interrupt_handler(7, device_not_available_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
