@@ -105,6 +105,11 @@ void alignment_check_handler(interrupt_frame_t *frame)
     kprintf("AC\n");
 }
 
+void machine_check_handler(interrupt_frame_t *frame)
+{
+    kprintf("#MC\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -125,6 +130,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(15, intel_reserved_do_not_use_handler);
     register_interrupt_handler(16, x87_fpu_floating_point_error_handler);
     register_interrupt_handler(17, alignment_check_handler);
+    register_interrupt_handler(18, machine_check_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
