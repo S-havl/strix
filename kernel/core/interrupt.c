@@ -90,6 +90,11 @@ void page_fault_handler(interrupt_frame_t *frame)
     kprintf("#PF\n");
 }
 
+void intel_reserved_do_not_use_handler(interrupt_frame_t *frame)
+{
+    kprintf("Intel reserved.\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -107,6 +112,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(12, stack_segment_fault_handler);
     register_interrupt_handler(13, general_protection_handler);
     register_interrupt_handler(14, page_fault_handler);
+    register_interrupt_handler(15, intel_reserved_do_not_use_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
