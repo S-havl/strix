@@ -85,6 +85,11 @@ void general_protection_handler(interrupt_frame_t *frame)
     kprintf("#GP\n");
 }
 
+void page_fault_handler(interrupt_frame_t *frame)
+{
+    kprintf("#PF\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -101,6 +106,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(11, segment_not_present_handler);
     register_interrupt_handler(12, stack_segment_fault_handler);
     register_interrupt_handler(13, general_protection_handler);
+    register_interrupt_handler(14, page_fault_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
