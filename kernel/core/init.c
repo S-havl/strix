@@ -50,6 +50,7 @@ void kernel_init()
     asm volatile ("int $17");
     asm volatile ("int $18");
     asm volatile ("int $19");
+    asm volatile ("int $20");
 
     // pic_init();
     // kprintf("[INFO] PIC initialized\n");
