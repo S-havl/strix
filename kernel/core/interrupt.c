@@ -110,6 +110,11 @@ void machine_check_handler(interrupt_frame_t *frame)
     kprintf("#MC\n");
 }
 
+void simd_floating_point_exception_handler(interrupt_frame_t *frame)
+{
+    kprintf("#XM\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -131,6 +136,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(16, x87_fpu_floating_point_error_handler);
     register_interrupt_handler(17, alignment_check_handler);
     register_interrupt_handler(18, machine_check_handler);
+    register_interrupt_handler(19, simd_floating_point_exception_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)

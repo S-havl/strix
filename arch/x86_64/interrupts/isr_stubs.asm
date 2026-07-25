@@ -103,6 +103,11 @@ isr18:
 	push	qword	18
 	jmp	isr_common
 
+isr19:
+	push	qword	0
+	push	qword	19
+	jmp	isr_common
+
 isr_common:
 	cld
 
@@ -176,3 +181,4 @@ isr_stub_table:
 	dq	isr16
 	dq	isr17
 	dq	isr18
+	dq	isr19
