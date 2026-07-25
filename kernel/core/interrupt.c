@@ -75,6 +75,11 @@ void segment_not_present_handler(interrupt_frame_t *frame)
     kprintf("#NP\n");
 }
 
+void stack_segment_fault_handler(interrupt_frame_t *frame)
+{
+    kprintf("#SS\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -89,6 +94,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(9, coproccesor_segment_overrun_handler);
     register_interrupt_handler(10, invalid_tss_handler);
     register_interrupt_handler(11, segment_not_present_handler);
+    register_interrupt_handler(12, stack_segment_fault_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
