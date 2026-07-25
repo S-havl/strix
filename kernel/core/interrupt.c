@@ -91,7 +91,7 @@ void interrupt_dispatcher(interrupt_frame_t *frame)
         kprintf("Kernel panic: invalid interrupt number!\n");
         for (;;) {
             __asm__ volatile ("cli; hlt");
-	}
+        }
     }
 
     if (interrupt_handlers[frame->int_no] != NULL) {
