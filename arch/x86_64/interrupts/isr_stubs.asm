@@ -73,6 +73,11 @@ isr12:
 	push	qword	12
 	jmp	isr_common
 
+isr13:
+	push	qword	0	; Delete in production
+	push	qword	13
+	jmp	isr_common
+
 isr_common:
 	cld
 
@@ -140,3 +145,4 @@ isr_stub_table:
 	dq	isr10
 	dq	isr11
 	dq	isr12
+	dq	isr13
