@@ -9,118 +9,118 @@
 
 interrupt_handler_t interrupt_handlers[MAX_GATES] = {NULL};
 
-void register_interrupt_handler(uint8_t n, interrupt_handler_t handler)
+static void register_interrupt_handler(uint8_t n, interrupt_handler_t handler)
 {
     interrupt_handlers[n] = handler;
 }
 
 // Handlers for idt gates 0-32
-void divide_error_handler(interrupt_frame_t *frame)
+static void divide_error_handler(interrupt_frame_t *frame)
 {
     kprintf("#DE\n");
 }
 
-void debug_exception_handler(interrupt_frame_t *frame)
+static void debug_exception_handler(interrupt_frame_t *frame)
 {
     kprintf("#DB\n");
 }
 
-void nmi_interrupt_handler(interrupt_frame_t *frame)
+static void nmi_interrupt_handler(interrupt_frame_t *frame)
 {
     kprintf("NMI\n");
 }
 
-void breakpoint_handler(interrupt_frame_t *frame)
+static void breakpoint_handler(interrupt_frame_t *frame)
 {
     kprintf("#BP\n");
 }
 
-void overflow_handler(interrupt_frame_t *frame)
+static void overflow_handler(interrupt_frame_t *frame)
 {
     kprintf("#OF\n");
 }
 
-void bound_range_exceeded_handler(interrupt_frame_t *frame)
+static void bound_range_exceeded_handler(interrupt_frame_t *frame)
 {
     kprintf("#BR\n");
 }
 
-void invalid_opcode_handler(interrupt_frame_t *frame)
+static void invalid_opcode_handler(interrupt_frame_t *frame)
 {
     kprintf("#UD\n");
 }
 
-void device_not_available_handler(interrupt_frame_t *frame)
+static void device_not_available_handler(interrupt_frame_t *frame)
 {
     kprintf("#NM\n");
 }
 
-void double_fault_handler(interrupt_frame_t *frame)
+static void double_fault_handler(interrupt_frame_t *frame)
 {
     kprintf("#DF\n");
 }
 
-void coproccesor_segment_overrun_handler(interrupt_frame_t *frame)
+static void coproccesor_segment_overrun_handler(interrupt_frame_t *frame)
 {
     kprintf("#Coproccesor segment overrun.\n");
 }
 
-void invalid_tss_handler(interrupt_frame_t *frame)
+static void invalid_tss_handler(interrupt_frame_t *frame)
 {
     kprintf("#TS\n");
 }
 
-void segment_not_present_handler(interrupt_frame_t *frame)
+static void segment_not_present_handler(interrupt_frame_t *frame)
 {
     kprintf("#NP\n");
 }
 
-void stack_segment_fault_handler(interrupt_frame_t *frame)
+static void stack_segment_fault_handler(interrupt_frame_t *frame)
 {
     kprintf("#SS\n");
 }
 
-void general_protection_handler(interrupt_frame_t *frame)
+static void general_protection_handler(interrupt_frame_t *frame)
 {
     kprintf("#GP\n");
 }
 
-void page_fault_handler(interrupt_frame_t *frame)
+static void page_fault_handler(interrupt_frame_t *frame)
 {
     kprintf("#PF\n");
 }
 
-void intel_reserved_do_not_use_handler(interrupt_frame_t *frame)
+static void intel_reserved_do_not_use_handler(interrupt_frame_t *frame)
 {
     kprintf("Intel reserved.\n");
 }
 
-void x87_fpu_floating_point_error_handler(interrupt_frame_t *frame)
+static void x87_fpu_floating_point_error_handler(interrupt_frame_t *frame)
 {
     kprintf("MF\n");
 }
 
-void alignment_check_handler(interrupt_frame_t *frame)
+static void alignment_check_handler(interrupt_frame_t *frame)
 {
     kprintf("AC\n");
 }
 
-void machine_check_handler(interrupt_frame_t *frame)
+static void machine_check_handler(interrupt_frame_t *frame)
 {
     kprintf("#MC\n");
 }
 
-void simd_floating_point_exception_handler(interrupt_frame_t *frame)
+static void simd_floating_point_exception_handler(interrupt_frame_t *frame)
 {
     kprintf("#XM\n");
 }
 
-void virtualization_exception_handler(interrupt_frame_t *frame)
+static void virtualization_exception_handler(interrupt_frame_t *frame)
 {
     kprintf("#VE\n");
 }
 
-void control_protection_exception_handler(interrupt_frame_t *frame)
+static void control_protection_exception_handler(interrupt_frame_t *frame)
 {
     kprintf("#CP\n");
 }
