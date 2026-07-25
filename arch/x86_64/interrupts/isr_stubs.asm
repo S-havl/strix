@@ -88,6 +88,11 @@ isr15:
 	push	qword	15
 	jmp	isr_common
 
+isr16:
+	push	qword	0
+	push	qword	16
+	jmp	isr_common
+
 isr_common:
 	cld
 
@@ -158,3 +163,4 @@ isr_stub_table:
 	dq	isr13
 	dq	isr14
 	dq	isr15
+	dq	isr16
