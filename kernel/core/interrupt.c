@@ -135,6 +135,11 @@ static void reserved_vector_23_handler(interrupt_frame_t *frame)
     kprintf("#N/A\n");
 }
 
+static void reserved_vector_24_handler(interrupt_frame_t *frame)
+{
+    kprintf("#N/A\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
