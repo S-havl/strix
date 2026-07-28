@@ -127,17 +127,22 @@ static void control_protection_exception_handler(interrupt_frame_t *frame)
 
 static void reserved_vector_22_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A\n");
+    kprintf("#N/A22\n");
 }
 
 static void reserved_vector_23_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A\n");
+    kprintf("#N/A23\n");
 }
 
 static void reserved_vector_24_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A\n");
+    kprintf("#N/A24\n");
+}
+
+static void reserved_vector_25_handler(interrupt_frame_t *frame)
+{
+    kprintf("#N/A25\n");
 }
 
 void interrupt_handlers_init(void)
@@ -166,6 +171,8 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(21, control_protection_exception_handler);
     register_interrupt_handler(22, reserved_vector_22_handler);
     register_interrupt_handler(23, reserved_vector_23_handler);
+    register_interrupt_handler(24, reserved_vector_24_handler);
+    register_interrupt_handler(25, reserved_vector_25_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
