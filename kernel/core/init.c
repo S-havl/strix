@@ -30,6 +30,7 @@ void kernel_init()
     interrupt_handlers_init();
     kprintf("[INFO] IDT HANDLERS initialized.\n");
 
+    // Remove all 'asm volatile' statements for production
     asm volatile ("int $0");
     asm volatile ("int $1");
     asm volatile ("int $2");
@@ -58,6 +59,7 @@ void kernel_init()
     asm volatile ("int $25");
     asm volatile ("int $26");
     asm volatile ("int $27");
+    asm volatile ("int $28");
 
     // pic_init();
     // kprintf("[INFO] PIC initialized\n");

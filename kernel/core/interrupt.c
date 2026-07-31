@@ -155,6 +155,11 @@ static void reserved_vector_27_handler(interrupt_frame_t *frame)
     kprintf("#N/A27\n");
 }
 
+static void reserved_vector_28_handler(interrupt_frame_t *frame)
+{
+    kprintf("#N/A28\n");
+}
+
 void interrupt_handlers_init(void)
 {
     register_interrupt_handler(0, divide_error_handler);
@@ -185,6 +190,7 @@ void interrupt_handlers_init(void)
     register_interrupt_handler(25, reserved_vector_25_handler);
     register_interrupt_handler(26, reserved_vector_26_handler);
     register_interrupt_handler(27, reserved_vector_27_handler);
+    register_interrupt_handler(28, reserved_vector_28_handler);
 }
 
 void interrupt_dispatcher(interrupt_frame_t *frame)
