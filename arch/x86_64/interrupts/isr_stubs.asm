@@ -163,6 +163,11 @@ isr30:
 	push	qword	30
 	jmp	isr_common
 
+isr31:
+	push	qword	0
+	push	qword	31
+	jmp	isr_common
+
 isr_common:
 	cld
 
@@ -248,3 +253,4 @@ isr_stub_table:
 	dq	isr28
 	dq	isr29
 	dq	isr30
+	dq	isr31
