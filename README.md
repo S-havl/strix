@@ -12,6 +12,8 @@ This repository contains the early development of the system including the bootl
   <img src="images/idt_test.png" alt="idt test" width="49%">
   &nbsp;
   <img src="images/idt_test_uwu.png" alt="idt test uwu" width="49%">
+  &nbsp;
+  <img src="images/handlers-vga-test.png" alt="handlers vga test" width="49%">
 </p>
 
 # Current Status
@@ -23,17 +25,17 @@ At the moment the kernel boots successfully and executes code in the kernel entr
 Example kernel output:
 
 ```
-[DATA] Starting kernel...
-[DATA] Hello world from the kernel!
-[DATA] Test1.
-[DATA] Test2.
-[DATA] Test3.
-[DATA] Everything perfect.
-[INFO] GDT initialized.
-[INFO] TSS initialized.
-[INFO] CS reloaded.
-[INFO] IDT initialized.
-[INFO] IDT HANDLERS initialized.
+[INFO] Starting kernel...
+[INFO] Hello world from the kernel!
+[INFO] Test1.
+[INFO] Test2.
+[INFO] Test3.
+[INFO] Everything perfect.
+[ OK ] GDT initialized.
+[ OK ] TSS initialized.
+[ OK ] CS reloaded.
+[ OK ] IDT initialized.
+[ OK ] IDT HANDLERS initialized.
 Entering long mode...
 ELF successfully detected. Entry point: 0x
 0010006C

@@ -12,23 +12,23 @@ void kernel_init()
 {
     clear_screen();
 
-    kprintf("[DATA] Starting kernel...\n");
-    kprintf("[DATA] Hello world from the kernel!\n");
-    kprintf("[DATA] Test1.\n");
-    kprintf("[DATA] Test2.\n");
-    kprintf("[DATA] Test3.\n");
-    kprintf("[DATA] Everything perfect.\n");
+    kprintf(COLOR_WHITE, COLOR_BLACK, "[INFO] Starting kernel...\n");
+    kprintf(COLOR_WHITE, COLOR_BLACK, "[INFO] Hello world from the kernel!\n");
+    kprintf(COLOR_WHITE, COLOR_BLACK, "[INFO] Test1.\n");
+    kprintf(COLOR_WHITE, COLOR_BLACK, "[INFO] Test2.\n");
+    kprintf(COLOR_WHITE, COLOR_BLACK, "[INFO] Test3.\n");
+    kprintf(COLOR_WHITE, COLOR_BLACK, "[INFO] Everything perfect.\n");
 
     gdt_init();
-    kprintf("[INFO] GDT initialized.\n");
-    kprintf("[INFO] TSS initialized.\n");
-    kprintf("[INFO] CS reloaded.\n");
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] GDT initialized.\n");
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] TSS initialized.\n");
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] CS reloaded.\n");
 
     idt_init();
-    kprintf("[INFO] IDT initialized.\n");
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT initialized.\n");
 
     interrupt_handlers_init();
-    kprintf("[INFO] IDT HANDLERS initialized.\n");
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT HANDLERS initialized.\n");
 
     // Remove all 'asm volatile' statements for production
     asm volatile ("int $0");

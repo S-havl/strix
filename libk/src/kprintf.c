@@ -5,10 +5,12 @@
 
 static volatile uint16_t* const vga = (volatile uint16_t*)VGA_MEMORY;
 
-void kprintf(const char* str)
+void kprintf(uint8_t text_color, uint8_t background_color, const char* str)
 {
+    vga_set_char_color(text_color, background_color);
+
     for (size_t i = 0; str[i] != '\0'; i++) {
-        putchar(str[i]);
+        vga_putchar(str[i]);
     }
 }
 

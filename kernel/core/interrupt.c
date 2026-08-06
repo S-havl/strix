@@ -17,162 +17,162 @@ static void register_interrupt_handler(uint8_t n, interrupt_handler_t handler)
 // Handlers for idt gates 0-32
 static void divide_error_handler(interrupt_frame_t *frame)
 {
-    kprintf("#DE\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#DE\n");
 }
 
 static void debug_exception_handler(interrupt_frame_t *frame)
 {
-    kprintf("#DB\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#DB\n");
 }
 
 static void nmi_interrupt_handler(interrupt_frame_t *frame)
 {
-    kprintf("NMI\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "NMI\n");
 }
 
 static void breakpoint_handler(interrupt_frame_t *frame)
 {
-    kprintf("#BP\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#BP\n");
 }
 
 static void overflow_handler(interrupt_frame_t *frame)
 {
-    kprintf("#OF\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#OF\n");
 }
 
 static void bound_range_exceeded_handler(interrupt_frame_t *frame)
 {
-    kprintf("#BR\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#BR\n");
 }
 
 static void invalid_opcode_handler(interrupt_frame_t *frame)
 {
-    kprintf("#UD\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#UD\n");
 }
 
 static void device_not_available_handler(interrupt_frame_t *frame)
 {
-    kprintf("#NM\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#NM\n");
 }
 
 static void double_fault_handler(interrupt_frame_t *frame)
 {
-    kprintf("#DF\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#DF\n");
 }
 
 static void coproccesor_segment_overrun_handler(interrupt_frame_t *frame)
 {
-    kprintf("#Coproccesor segment overrun.\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#Coproccesor segment overrun.\n");
 }
 
 static void invalid_tss_handler(interrupt_frame_t *frame)
 {
-    kprintf("#TS\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#TS\n");
 }
 
 static void segment_not_present_handler(interrupt_frame_t *frame)
 {
-    kprintf("#NP\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#NP\n");
 }
 
 static void stack_segment_fault_handler(interrupt_frame_t *frame)
 {
-    kprintf("#SS\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#SS\n");
 }
 
 static void general_protection_handler(interrupt_frame_t *frame)
 {
-    kprintf("#GP\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#GP\n");
 }
 
 static void page_fault_handler(interrupt_frame_t *frame)
 {
-    kprintf("#PF\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#PF\n");
 }
 
 static void intel_reserved_do_not_use_handler(interrupt_frame_t *frame)
 {
-    kprintf("Intel reserved.\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "Intel reserved.\n");
 }
 
 static void x87_fpu_floating_point_error_handler(interrupt_frame_t *frame)
 {
-    kprintf("MF\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "MF\n");
 }
 
 static void alignment_check_handler(interrupt_frame_t *frame)
 {
-    kprintf("AC\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "AC\n");
 }
 
 static void machine_check_handler(interrupt_frame_t *frame)
 {
-    kprintf("#MC\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#MC\n");
 }
 
 static void simd_floating_point_exception_handler(interrupt_frame_t *frame)
 {
-    kprintf("#XM\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#XM\n");
 }
 
 static void virtualization_exception_handler(interrupt_frame_t *frame)
 {
-    kprintf("#VE\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#VE\n");
 }
 
 static void control_protection_exception_handler(interrupt_frame_t *frame)
 {
-    kprintf("#CP\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#CP\n");
 }
 
 static void reserved_vector_22_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A22\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A22\n");
 }
 
 static void reserved_vector_23_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A23\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A23\n");
 }
 
 static void reserved_vector_24_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A24\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A24\n");
 }
 
 static void reserved_vector_25_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A25\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A25\n");
 }
 
 static void reserved_vector_26_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A26\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A26\n");
 }
 
 static void reserved_vector_27_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A27\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A27\n");
 }
 
 static void reserved_vector_28_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A28\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A28\n");
 }
 
 static void reserved_vector_29_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A29\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A29\n");
 }
 
 static void reserved_vector_30_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A30\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A30\n");
 }
 
 static void reserved_vector_31_handler(interrupt_frame_t *frame)
 {
-    kprintf("#N/A31\n");
+    kprintf(COLOR_YELLOW, COLOR_RED, "#N/A31\n");
 }
 
 void interrupt_handlers_init(void)
@@ -214,7 +214,7 @@ void interrupt_handlers_init(void)
 void interrupt_dispatcher(interrupt_frame_t *frame)
 {
     if (frame->int_no >= MAX_GATES) {
-        kprintf("Kernel panic: invalid interrupt number!\n");
+        kprintf(COLOR_YELLOW, COLOR_RED, "Kernel panic: invalid interrupt number!\n");
         for (;;) {
             __asm__ volatile ("cli; hlt");
         }
@@ -224,6 +224,6 @@ void interrupt_dispatcher(interrupt_frame_t *frame)
         interrupt_handler_t handler = interrupt_handlers[frame->int_no];
         handler(frame);
     } else {
-        kprintf("Unhandled interrupt.\n");
+        kprintf(COLOR_YELLOW, COLOR_BLACK, "Unhandled interrupt.\n");
     }
 }
