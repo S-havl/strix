@@ -1,4 +1,4 @@
-#include <kernel/init.h>
+#include <kernel/core/init.h>
 
 void _start(void)
 {

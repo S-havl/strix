@@ -30,7 +30,12 @@ void kernel_init()
     interrupt_handlers_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT HANDLERS initialized.\n");
 
+    int number1 = 0;
+    int number2 = 0;
+    int total = number1 / number2;
+
     // Remove all 'asm volatile' statements for production
+    /*
     asm volatile ("int $0");
     asm volatile ("int $1");
     asm volatile ("int $2");
@@ -63,6 +68,7 @@ void kernel_init()
     asm volatile ("int $29");
     asm volatile ("int $30");
     asm volatile ("int $31");
+    */
 
     // pic_init();
     // kprintf("[INFO] PIC initialized\n");

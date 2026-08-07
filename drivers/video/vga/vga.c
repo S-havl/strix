@@ -1,6 +1,7 @@
+#include <drivers/video/vga/vga.h>
+
 #include <stdint.h>
 #include <stddef.h>
-#include <drivers/video/vga/vga.h>
 
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
