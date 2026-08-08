@@ -44,7 +44,7 @@ void idt_init(void)
     idtr.limit = sizeof(idt) - 1;
     idtr.base  = (uint64_t)&idt;
 
-    for (int i = 0; i < IDT_SIZE; i++) {
+    for (int i = 0; i < 32; i++) {
         set_idt_entry(&idt[i], (uint64_t)(uintptr_t)isr_stub_table[i], KERNEL_CS, 0, 0x8E);
     }
 

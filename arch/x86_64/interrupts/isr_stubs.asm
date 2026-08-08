@@ -49,7 +49,7 @@ isr7:
 	jmp	isr_common
 
 isr8:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	8
 	jmp	isr_common
 
@@ -59,32 +59,32 @@ isr9:
 	jmp	isr_common
 
 isr10:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	10
 	jmp	isr_common
 
 isr11:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	11
 	jmp	isr_common
 
 isr12:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	12
 	jmp	isr_common
 
 isr13:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	13
 	jmp	isr_common
 
 isr14:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	14
 	jmp	isr_common
 
 isr15:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	15
 	jmp	isr_common
 
@@ -94,7 +94,7 @@ isr16:
 	jmp	isr_common
 
 isr17:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	17
 	jmp	isr_common
 
@@ -114,7 +114,7 @@ isr20:
 	jmp	isr_common
 
 isr21:
-	push	qword	0	; Delete in production
+	;push	qword	0	; Delete in production
 	push	qword	21
 	jmp	isr_common
 
