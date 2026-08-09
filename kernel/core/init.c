@@ -30,10 +30,6 @@ void kernel_init()
     interrupt_handlers_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT HANDLERS initialized.\n");
 
-    int number1 = 0;
-    int number2 = 0;
-    int total = number1 / number2;
-
     // Remove all 'asm volatile' statements for production
     /*
     asm volatile ("int $0");

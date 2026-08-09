@@ -46,7 +46,7 @@ KERNEL_ELF = $(BUILD)/kernel/kernel.elf
 # -------------------------------
 # Compiler flags
 # -------------------------------
-CFLAGS = -ffreestanding -nostdlib -mno-red-zone -mcmodel=kernel \
+CFLAGS = -g -ffreestanding -nostdlib -mno-red-zone -mcmodel=kernel \
          -fno-pic -fno-pie -no-pie \
          -Iinclude -Iinclude/arch/x86_64 -Ilibk/include
 
