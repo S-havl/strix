@@ -1,7 +1,7 @@
 #include <arch/x86_64/cpu/gdt.h>
 #include <arch/x86_64/interrupts/idt.h>
 #include <kernel/core/interrupt.h>
-// #include <arch/x86_64/pic.h>
+// #include <arch/x86_64/interrupts/pic.h>
 
 // #include <drivers/timer/pit.h>
 // #include <drivers/input/keyboard.h>
