@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define PIC1_CMD 0x20
+#define PICMASTER_CMD 0x20
 #define PIC1_DATA 0x21
 
 #define PIC2_CMD 0xA0
