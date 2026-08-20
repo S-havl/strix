@@ -43,6 +43,6 @@ void kernel_init()
     // kprintf("[INFO] Interruptions enable.\n");
     
     while(1) {
-        asm volatile("hlt");
+        __asm__ __volatile__("hlt");
     }
 }

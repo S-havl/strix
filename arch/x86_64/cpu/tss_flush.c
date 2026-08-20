@@ -3,7 +3,7 @@
 
 void tss_flush(uint16_t selector)
 {
-    asm volatile (
+    __asm__ __volatile__ (
         "ltr %%ax"
 	:
 	: "a"(selector)
