@@ -36,6 +36,7 @@ Example kernel output:
 [ OK ] CS reloaded.
 [ OK ] IDT initialized.
 [ OK ] IDT HANDLERS initialized.
+[ OK ] PIC initialized and remapped.
 Entering long mode...
 ELF successfully detected. Entry point: 0x
 0010006C

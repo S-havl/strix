@@ -1,7 +1,7 @@
 #include <arch/x86_64/cpu/gdt.h>
 #include <arch/x86_64/interrupts/idt.h>
 #include <kernel/core/interrupt.h>
-// #include <arch/x86_64/interrupts/pic.h>
+#include <arch/x86_64/interrupts/pic.h>
 
 // #include <drivers/timer/pit.h>
 // #include <drivers/input/keyboard.h>
@@ -30,8 +30,8 @@ void kernel_init()
     interrupt_handlers_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT HANDLERS initialized.\n");
 
-    // pic_init();
-    // kprintf("[INFO] PIC initialized\n");
+    pic_init();
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] PIC initialized and remapped.\n");
     
     // pit_init();
     // kprintf("[INFO] PIT initialized\n");
@@ -41,8 +41,8 @@ void kernel_init()
 
     // asm volatile("sti");
     // kprintf("[INFO] Interruptions enable.\n");
-    
+
     while(1) {
-        __asm__ __volatile__("hlt");
+        __asm__ __volatile__("sti; hlt" : : : "memory");
     }
 }

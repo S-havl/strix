@@ -43,8 +43,10 @@ static inline void io_wait(void)
 
 void pic_init(void)
 {
-    uint8_t mask1 = inb(PICMASTER_DATA);
-    uint8_t mask2 = inb(PICSLAVE_DATA);
+    __asm__ __volatile__ ("cli" : : : "memory");
+
+    // uint8_t mask1 = inb(PICMASTER_DATA); off
+    // uint8_t mask2 = inb(PICSLAVE_DATA); off
 
     outb(PICMASTER_CMD, ICW1_INIT | ICW1_ICW4);
     io_wait();
@@ -55,4 +57,17 @@ void pic_init(void)
     io_wait();
     outb(PICSLAVE_DATA, OFFSET2);
     io_wait();
+
+    outb(PICMASTER_DATA, 0x04);
+    io_wait();
+    outb(PICSLAVE_DATA, 0x02);
+    io_wait();
+
+    outb(PICMASTER_DATA, ICW4_8086);
+    io_wait();
+    outb(PICSLAVE_DATA, ICW4_8086);
+    io_wait();
+
+    outb(PICMASTER_DATA, 0xFF); // off = mask1
+    outb(PICSLAVE_DATA, 0xFF);  // off = mask2
 }

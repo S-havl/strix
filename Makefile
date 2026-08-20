@@ -29,7 +29,8 @@ arch/x86_64/cpu/tss.c \
 arch/x86_64/cpu/tss_flush.c \
 arch/x86_64/interrupts/idt.c \
 drivers/video/vga/vga.c \
-libk/src/kprintf.c
+libk/src/kprintf.c \
+arch/x86_64/interrupts/pic.c
 
 # Kernel ASM files (interrupts)
 ASM_SRC = $(wildcard arch/x86_64/interrupts/*.asm)
