@@ -13,6 +13,9 @@
 #define ICW1_ICW4 0x01
 #define ICW4_8086 0x01
 
+#define OFFSET1 0x20
+#define OFFSET2 0x28
+
 static uint8_t inb(uint16_t port)
 {
     uint8_t ret;
@@ -40,5 +43,6 @@ static inline void io_wait(void)
 
 void pic_init(void)
 {
-    // pic remap here
+    uint8_t mask1 = inb(PICMASTER_DATA);
+    uint8_t mask2 = inb(PICSLAVE_DATA);
 }
