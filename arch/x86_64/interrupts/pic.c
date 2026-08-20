@@ -45,4 +45,9 @@ void pic_init(void)
 {
     uint8_t mask1 = inb(PICMASTER_DATA);
     uint8_t mask2 = inb(PICSLAVE_DATA);
+
+    outb(PICMASTER_CMD, ICW1_INIT | ICW1_ICW4);
+    io_wait();
+    outb(PICSLAVE_CMD, ICW1_INIT | ICW1_ICW4);
+    io_wait();
 }
