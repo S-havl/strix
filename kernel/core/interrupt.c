@@ -248,7 +248,7 @@ void interrupt_dispatcher(interrupt_frame_t *frame)
     if (frame->int_no >= MAX_GATES) {
         kprintf(COLOR_YELLOW, COLOR_RED, "Kernel panic: invalid interrupt number!\n");
         for (;;) {
-            __asm__ volatile ("cli; hlt");
+            __asm__ __volatile__ ("cli; hlt");
         }
     }
 
