@@ -50,4 +50,9 @@ void pic_init(void)
     io_wait();
     outb(PICSLAVE_CMD, ICW1_INIT | ICW1_ICW4);
     io_wait();
+
+    outb(PICMASTER_DATA, OFFSET1);
+    io_wait();
+    outb(PICSLAVE_DATA, OFFSET2);
+    io_wait();
 }
