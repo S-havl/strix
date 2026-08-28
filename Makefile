@@ -103,8 +103,14 @@ run: $(IMG)
 # -------------------------------
 # Run in QEMU for GDB
 # -------------------------------
-gdb: $(IMG)
+gdb-64: $(IMG)
 	qemu-system-x86_64 -hda $(IMG) -s -S
+
+gdb-32:
+	qemu-system-i386 -hda $(IMG) -s -S
+
+gdb-16:
+	qemu-system-i386 -hda $(IMG) -s -S
 
 # -------------------------------
 # Clean
