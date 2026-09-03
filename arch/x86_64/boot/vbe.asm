@@ -2,6 +2,7 @@
 ; SET VBE MODE 1024x768x32 
 ; ==========================================================
 
+vbe_start:
 	mov	ax, 0x4F01
 	mov	cx, 0x0118
 	mov	di, vbe_mode_info_block
@@ -26,3 +27,4 @@
 
 	mov	ax, [vbe_mode_info_block + 0x10]
 	mov	[screen_pitch], ax
+	ret

@@ -31,9 +31,16 @@ stage2_start:
 	mov	dl, [boot_drive]
 	int	0x13
 
-;	%include "arch/x86_64/boot/vbe.asm"
+	call	e820_start
+;	call	vbe_start
 
 	jmp	enter_protect_mode	; Transition to PM
+
+; ==========================================================
+;            INCLUDES REAL MODE (16 bits)
+; ==========================================================
+%include "arch/x86_64/boot/e820.asm"
+; %include "arch/x86_64/boot/vbe.asm"
 
 ; ==========================================================
 ;            ENTER PROTECTED MODE (RM -> PM)
@@ -72,6 +79,7 @@ CODE_SEL	equ	1 << 3
 DATA_SEL	equ	2 << 3
 
 boot_drive:	db	0
+mmap_entry:	equ	0x6004
 ;vbe_mode_info_block:	times	256	db	0
 ;framebuffer_phys:	dd	0
 ;screen_width:	dw	0
