@@ -2,6 +2,7 @@
 #include <arch/x86_64/interrupts/idt.h>
 #include <kernel/core/interrupt.h>
 #include <arch/x86_64/interrupts/pic.h>
+#include <mm/pmm.h>
 
 // #include <drivers/timer/pit.h>
 // #include <drivers/input/keyboard.h>
@@ -23,6 +24,9 @@ void kernel_init()
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] GDT initialized.\n");
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] TSS initialized.\n");
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] CS reloaded.\n");
+
+    init_physical_memory_map();
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Physical Memory Map initialized.\n");
 
     idt_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT initialized.\n");
