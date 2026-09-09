@@ -34,6 +34,7 @@ Example kernel output:
 [ OK ] GDT initialized.
 [ OK ] TSS initialized.
 [ OK ] CS reloaded.
+[ OK ] Physical Memory Map initialized.
 [ OK ] IDT initialized.
 [ OK ] IDT HANDLERS initialized.
 [ OK ] PIC initialized and remapped.
