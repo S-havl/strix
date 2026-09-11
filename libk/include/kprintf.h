@@ -28,4 +28,6 @@
 
 void kprintf(uint8_t text_color, uint8_t background_color, const char* str);
 
+void kprintf_hex64();
+
 void clear_screen();
