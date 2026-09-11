@@ -4,12 +4,12 @@
 
 #define E820_COUNT_ADDRESS 0x6002
 #define E820_ENTRY_MAP_ADDRESS 0x6004
+#define MAX_E820_ENTRYS 256
 
 #pragma pack(push, 1)
 typedef struct e820_entry {
-    uint32_t base_addr_low;
-    uint32_t base_addr_high; 
-    uint32_t length_low;
+    uint64_t base_addr;
+    uint64_t length;
     uint32_t type;
     uint32_t extended_attributes;
 } e820_entry_t;
