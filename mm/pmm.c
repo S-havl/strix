@@ -25,4 +25,9 @@ void init_physical_memory_map(void)
 {
     uint16_t* e820_count = (uint16_t*)E820_COUNT_ADDRESS;
     e820_entry_t* e820_map = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
+
+    for (uint16_t i = 0; i < *e820_count; i++) {
+        if (is_memory_usable(e820_map[i].type)) {
+        }
+    }
 }
