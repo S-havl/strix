@@ -14,8 +14,11 @@ void kprintf(uint8_t text_color, uint8_t background_color, const char* str)
     }
 }
 
-void kprintf_hex64()
+void kprintf_hex64(uint8_t text_color, uint64_t value)
 {
+    char hex_characters[] = "0123456789ABCDEF";
+
+    vga_set_char_color(text_color, background_color);
 }
 
 void clear_screen()
