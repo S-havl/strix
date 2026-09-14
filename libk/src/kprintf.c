@@ -18,6 +18,9 @@ void kprintf_hex64(uint8_t text_color, uint64_t value)
 {
     char hex_characters[] = "0123456789ABCDEF";
 
+    vga_putchar('0');
+    vga_putchar('x');
+
     vga_set_char_color(text_color, background_color);
 }
 
