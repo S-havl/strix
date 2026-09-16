@@ -14,14 +14,20 @@ void kprintf(uint8_t text_color, uint8_t background_color, const char* str)
     }
 }
 
-void kprintf_hex64(uint8_t text_color, uint64_t value)
+void kprintf_hex64(uint8_t text_color, uint8_t background_color, uint64_t value)
 {
+    vga_set_char_color(text_color, background_color);
+
     char hex_characters[] = "0123456789ABCDEF";
 
     vga_putchar('0');
     vga_putchar('x');
 
-    vga_set_char_color(text_color, background_color);
+    for (int i = 15; i >= 0; i--) {
+        int nibble = (value >> (i * 4)) & 0x0F;
+        vga_putchar(hex_characters[nibble]);
+    }
+
 }
 
 void clear_screen()
