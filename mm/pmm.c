@@ -1,6 +1,9 @@
 #include <mm/pmm.h>
+#include <kprintf.h>
 
 #include <stdint.h>
+
+#define PAGE_SIZE 4096
 
 static int is_memory_usable(uint32_t type)
 {
@@ -28,6 +31,17 @@ void init_physical_memory_map(void)
 
     for (uint16_t i = 0; i < *e820_count; i++) {
         if (is_memory_usable(e820_map[i].type)) {
+            kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
+
+            kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, "Base: ");
+            kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, e820_map[i].base_addr);
+
+            kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
+
+            kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, "Size: ");
+            kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, e820_map[i].length);
+
+            kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
         }
     }
 }
