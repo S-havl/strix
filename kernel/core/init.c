@@ -9,7 +9,7 @@
 
 #include <kprintf.h>
 
-void kernel_init()
+void kernel_init(void)
 {
     clear_screen();
 

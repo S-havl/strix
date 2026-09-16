@@ -5,7 +5,10 @@
 
 #define PAGE_SIZE 4096
 
-static int is_memory_usable(uint32_t type)
+static uint16_t* e820_count = (uint16_t*)E820_COUNT_ADDRESS;
+static e820_entry_t* e820_map = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
+
+static int is_memory_usable(const uint32_t type)
 {
     switch(type) {
         case ACPI_MEM_USABLE:
@@ -24,11 +27,13 @@ static int is_memory_usable(uint32_t type)
     }
 }
 
+static void inspect_e820_map_entries(const e820_entry_t* e820_map, const uint16_t* e820_count)
+{
+    // Unused
+}
+
 void init_physical_memory_map(void)
 {
-    uint16_t* e820_count = (uint16_t*)E820_COUNT_ADDRESS;
-    e820_entry_t* e820_map = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
-
     for (uint16_t i = 0; i < *e820_count; i++) {
         if (is_memory_usable(e820_map[i].type)) {
             kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
