@@ -35,6 +35,15 @@ static void inspect_e820_map_entries(const e820_entry_t* e820_map, const uint16_
         uint32_t type                = e820_map[i].type;
         uint32_t extended_attributes = e820_map[i].extended_attributes;
 
+        kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " B: ");
+        kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, base_addr);
+
+        kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " L: ");
+        kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, length);
+
+        kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " T: ");
+        kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, type);
+
         kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
 
     }
@@ -44,6 +53,7 @@ void init_physical_memory_map(void)
 {
     inspect_e820_map_entries(e820_map, e820_count);
 
+    /*
     for (uint16_t i = 0; i < *e820_count; i++) {
         if (is_memory_usable(e820_map[i].type)) {
             kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
@@ -59,4 +69,5 @@ void init_physical_memory_map(void)
             kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
         }
     }
+    */
 }
