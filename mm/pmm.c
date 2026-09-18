@@ -29,11 +29,21 @@ static int is_memory_usable(const uint32_t type)
 
 static void inspect_e820_map_entries(const e820_entry_t* e820_map, const uint16_t* e820_count)
 {
-    // Unused
+    for (uint16_t i = 0; i < *e820_count; i++) { 
+        uint64_t base_addr           = e820_map[i].base_addr;
+        uint64_t length              = e820_map[i].length;
+        uint32_t type                = e820_map[i].type;
+        uint32_t extended_attributes = e820_map[i].extended_attributes;
+
+        kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
+
+    }
 }
 
 void init_physical_memory_map(void)
 {
+    inspect_e820_map_entries(e820_map, e820_count);
+
     for (uint16_t i = 0; i < *e820_count; i++) {
         if (is_memory_usable(e820_map[i].type)) {
             kprintf(COLOR_WHITE, COLOR_BLACK, "\n");
