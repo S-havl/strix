@@ -5,6 +5,8 @@
 
 #define PAGE_SIZE 4096
 
+uint8_t* bitmap = (uint8_t*)...;
+
 static uint16_t* e820_count = (uint16_t*)E820_COUNT_ADDRESS;
 static e820_entry_t* e820_map = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
 
