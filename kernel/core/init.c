@@ -1,7 +1,7 @@
 #include <arch/x86_64/cpu/gdt.h>
 #include <arch/x86_64/interrupts/idt.h>
-#include <kernel/core/interrupt.h>
 #include <arch/x86_64/interrupts/pic.h>
+#include <kernel/core/interrupt.h>
 #include <mm/pmm.h>
 
 // #include <drivers/timer/pit.h>
@@ -36,7 +36,7 @@ void kernel_init(void)
 
     pic_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] PIC initialized and remapped.\n");
-    
+
     // pit_init();
     // kprintf("[INFO] PIT initialized\n");
 
@@ -46,7 +46,7 @@ void kernel_init(void)
     // asm volatile("sti");
     // kprintf("[INFO] Interruptions enable.\n");
 
-    while(1) {
+    while (1) {
         __asm__ __volatile__("sti; hlt" : : : "memory");
     }
 }

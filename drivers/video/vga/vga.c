@@ -1,27 +1,29 @@
 #include <drivers/video/vga/vga.h>
 
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
 
-static volatile uint16_t* const vga = (volatile uint16_t*)VGA_MEMORY;
-static size_t cursor = 0;
+static volatile uint16_t* const vga    = (volatile uint16_t*)VGA_MEMORY;
+static size_t                   cursor = 0;
 
 uint8_t VGA_COLOR = 0x0A;
 
 void vga_putchar(const char c)
-{ 
+{
     if (c == '\n') {
         cursor += VGA_WIDTH - (cursor % VGA_WIDTH);
 
-        if (cursor >= VGA_WIDTH * VGA_HEIGHT) cursor = 0;
+        if (cursor >= VGA_WIDTH * VGA_HEIGHT)
+            cursor = 0;
 
         return;
     }
 
-    if (cursor >= VGA_WIDTH * VGA_HEIGHT) cursor = 0;
+    if (cursor >= VGA_WIDTH * VGA_HEIGHT)
+        cursor = 0;
 
     vga[cursor] = ((uint16_t)VGA_COLOR << 8) | (uint8_t)c;
     cursor++;

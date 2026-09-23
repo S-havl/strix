@@ -1,0 +1,25 @@
+---
+Language:        C
+BasedOnStyle:    LLVM
+
+IndentWidth:     4
+TabWidth:        4
+UseTab:          Never
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction:   true
+  AfterControlStatement: false
+  AfterStruct:     false
+  AfterEnum:       false
+  BeforeElse:      false
+
+IndentCaseLabels: true
+
+PointerAlignment: Left
+
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+
+ColumnLimit:     100
+...
