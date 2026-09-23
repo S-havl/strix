@@ -1,7 +1,9 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
+#define PAGE_SIZE 4096
 #define E820_COUNT_ADDRESS 0x6002
 #define E820_ENTRY_MAP_ADDRESS 0x6004
 #define MAX_E820_ENTRYS 256
@@ -24,9 +26,7 @@ typedef enum {
     ACPI_MEM_DISABLED           = 6,
     ACPI_MEM_PERSISTENT         = 7,
     ACPI_MEM_UNACCEPTED         = 8,
-
     ACPI_MEM_OEM_DEFINED        = 12,
-
     ACPI_MEM_OEM_DEFINED_HIGH   = 0xF0000000 // to 0xFFFFFFFF
 } acpi_memory_type_t;
 

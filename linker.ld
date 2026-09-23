@@ -26,4 +26,7 @@ SECTIONS
         *(COMMON)
         *(.bss*)
     } :data
+
+    . = ALIGN(4K);
+    _kernel_end = .;
 }
