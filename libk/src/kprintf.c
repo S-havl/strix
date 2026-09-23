@@ -1,7 +1,7 @@
-#include <stdint.h>
-#include <stddef.h>
-#include <drivers/video/vga/vga.h>
 #include "kprintf.h"
+#include <drivers/video/vga/vga.h>
+#include <stddef.h>
+#include <stdint.h>
 
 static volatile uint16_t* const vga = (volatile uint16_t*)VGA_MEMORY;
 
@@ -27,7 +27,6 @@ void kprintf_hex64(uint8_t text_color, uint8_t background_color, uint64_t value)
         int nibble = (value >> (i * 4)) & 0x0F;
         vga_putchar(hex_characters[nibble]);
     }
-
 }
 
 void clear_screen()

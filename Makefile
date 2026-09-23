@@ -36,6 +36,8 @@ mm/pmm.c
 # Kernel ASM files (interrupts)
 ASM_SRC = $(wildcard arch/x86_64/interrupts/*.asm)
 
+FORMAT_FILES := $(shell find . -type d -name '$(BUILD)' -prune -false -o -type f \( -name '*.c' -o -name '*.h' \))
+
 # -------------------------------
 # Object files
 # -------------------------------
@@ -48,14 +50,23 @@ KERNEL_ELF = $(BUILD)/kernel/kernel.elf
 # -------------------------------
 # Compiler flags
 # -------------------------------
-CFLAGS = -g -ffreestanding -nostdlib -mno-red-zone -mcmodel=kernel \
+CFLAGS = -Wall -Wextra -Werror -Wpedantic -std=gnu11 -Wno-unused-parameter -Wno-unused-function -g -ffreestanding -nostdlib -mno-red-zone -mcmodel=kernel \
          -fno-pic -fno-pie -no-pie \
          -Iinclude -Iinclude/arch/x86_64 -Ilibk/include
+
+.PHONY: all format run gdb-64 gdb-32 gdb-16 clean
 
 # -------------------------------
 # Default target
 # -------------------------------
 all: $(IMG)
+
+# -------------------------------
+# Formatter rule
+# -------------------------------
+format:
+	@echo "Formatting the Strix source code..."
+	@clang-format -i $(FORMAT_FILES)
 
 # -------------------------------
 # Bootloader rules
@@ -116,6 +127,6 @@ gdb-16:
 # -------------------------------
 # Clean
 # -------------------------------
-.PHONY: clean
+
 clean:
 	rm -rf $(BUILD)

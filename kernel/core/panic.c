@@ -1,6 +1,4 @@
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
-void kernel_panic(void)
-{
-}
+void kernel_panic(void) {}

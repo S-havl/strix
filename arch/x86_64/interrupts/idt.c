@@ -1,5 +1,5 @@
-#include <stdint.h>
 #include <arch/x86_64/interrupts/idt.h>
+#include <stdint.h>
 
 #define IDT_SIZE 256
 #define KERNEL_CS 0x08
@@ -22,9 +22,10 @@ typedef struct IDTR {
 #pragma pack(pop)
 
 IDTEntry_t idt[IDT_SIZE];
-IDTR_t idtr;
+IDTR_t     idtr;
 
-static void set_idt_entry(IDTEntry_t *entry, uint64_t offset, uint16_t selector, uint8_t ist, uint8_t type_attributes)
+static void set_idt_entry(IDTEntry_t* entry, uint64_t offset, uint16_t selector, uint8_t ist,
+                          uint8_t type_attributes)
 {
     *entry = (IDTEntry_t){0};
 
@@ -48,6 +49,5 @@ void idt_init(void)
         set_idt_entry(&idt[i], (uint64_t)(uintptr_t)isr_stub_table[i], KERNEL_CS, 0, 0x8E);
     }
 
-    __asm__ volatile ("lidt %0" : : "m"(idtr) : "memory");
+    __asm__ volatile("lidt %0" : : "m"(idtr) : "memory");
 }
-

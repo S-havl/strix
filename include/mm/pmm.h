@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #define PAGE_SIZE 4096
 #define E820_COUNT_ADDRESS 0x6002
@@ -18,16 +18,17 @@ typedef struct e820_entry {
 #pragma pack(pop)
 
 typedef enum {
-    ACPI_MEM_USABLE             = 1,
-    ACPI_MEM_RESERVED           = 2,
-    ACPI_MEM_ACPI_RECLAIM       = 3,
-    ACPI_MEM_NVS                = 4,
-    ACPI_MEM_UNUSABLE           = 5,
-    ACPI_MEM_DISABLED           = 6,
-    ACPI_MEM_PERSISTENT         = 7,
-    ACPI_MEM_UNACCEPTED         = 8,
-    ACPI_MEM_OEM_DEFINED        = 12,
-    ACPI_MEM_OEM_DEFINED_HIGH   = 0xF0000000 // to 0xFFFFFFFF
+    ACPI_MEM_USABLE       = 1,
+    ACPI_MEM_RESERVED     = 2,
+    ACPI_MEM_ACPI_RECLAIM = 3,
+    ACPI_MEM_NVS          = 4,
+    ACPI_MEM_UNUSABLE     = 5,
+    ACPI_MEM_DISABLED     = 6,
+    ACPI_MEM_PERSISTENT   = 7,
+    ACPI_MEM_UNACCEPTED   = 8,
+    ACPI_MEM_OEM_DEFINED  = 12,
 } acpi_memory_type_t;
+
+#define ACPI_MEM_OEM_DEFINED_HIGH 0xF0000000 // to 0xFFFFFFFF
 
 void init_physical_memory_map(void);

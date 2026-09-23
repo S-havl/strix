@@ -1,11 +1,11 @@
-#include <stdint.h>
 #include <arch/x86_64/cpu/gdt.h>
 #include <arch/x86_64/cpu/tss.h>
+#include <stdint.h>
 
 #define GDT_SIZE 7
 
 #define GDT_FLAG_GRANULARITY 0x80
-#define GDT_FLAG_LONG        0x20
+#define GDT_FLAG_LONG 0x20
 
 #define GDT_FLAGS_CODE (GDT_FLAG_GRANULARITY | GDT_FLAG_LONG)
 #define GDT_FLAGS_DATA (GDT_FLAG_GRANULARITY)
@@ -27,11 +27,11 @@ typedef struct GDTR {
 #pragma pack(pop)
 
 static GDTEntry_t gdt[GDT_SIZE] __attribute__((aligned(8)));
-static GDTR_t gdtr;
-void gdt_flush(void *gdtr_ptr);
+static GDTR_t     gdtr;
+void              gdt_flush(void* gdtr_ptr);
 
-
-static void set_gdt_entry(GDTEntry_t *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags)
+static void set_gdt_entry(GDTEntry_t* entry, uint32_t base, uint32_t limit, uint8_t access,
+                          uint8_t flags)
 {
     *entry = (GDTEntry_t){0};
 
@@ -43,12 +43,11 @@ static void set_gdt_entry(GDTEntry_t *entry, uint32_t base, uint32_t limit, uint
     entry->access      = access;
 }
 
-
 static void set_tss_descriptor(int index, uint64_t base, uint32_t limit)
 {
-    uint64_t *gdt64 = (uint64_t*)gdt;
+    uint64_t* gdt64 = (uint64_t*)gdt;
 
-    uint64_t low = 0;
+    uint64_t low  = 0;
     uint64_t high = 0;
 
     low |= (limit & 0xFFFF);
@@ -80,15 +79,12 @@ void gdt_init(void)
 
     gdt_flush(&gdtr);
 
-    asm volatile (
-        "pushq $0x08\n"
-	"lea 1f(%%rip), %%rax\n"
-	"pushq %%rax\n"
-	"lretq\n"
-	"1:\n"
-	::: "rax", "memory"
-    );
-    
-    tss_flush(0x28);
+    asm volatile("pushq $0x08\n"
+                 "lea 1f(%%rip), %%rax\n"
+                 "pushq %%rax\n"
+                 "lretq\n"
+                 "1:\n" ::
+                     : "rax", "memory");
 
+    tss_flush(0x28);
 }

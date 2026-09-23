@@ -1,7 +1,7 @@
 #include <arch/x86_64/interrupts/pic.h>
 
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #define PICMASTER_CMD 0x20
 #define PICMASTER_DATA 0x21
@@ -19,31 +19,20 @@
 static uint8_t inb(uint16_t port)
 {
     uint8_t ret;
-    __asm__ __volatile__(
-        "inb %1, %0"
-        : "=a"(ret)
-        : "Nd"(port)
-    );
+    __asm__ __volatile__("inb %1, %0" : "=a"(ret) : "Nd"(port));
     return ret;
 }
 
 static void outb(uint16_t port, uint8_t val)
 {
-    __asm__ __volatile__(
-        "outb %0, %1"
-        :
-        : "a"(val), "Nd"(port)
-    );
+    __asm__ __volatile__("outb %0, %1" : : "a"(val), "Nd"(port));
 }
 
-static inline void io_wait(void)
-{
-    __asm__ __volatile__ ("outb %0, $0x80" : : "a"((uint8_t)0));
-}
+static inline void io_wait(void) { __asm__ __volatile__("outb %0, $0x80" : : "a"((uint8_t)0)); }
 
 void pic_init(void)
 {
-    __asm__ __volatile__ ("cli" : : : "memory");
+    __asm__ __volatile__("cli" : : : "memory");
 
     // uint8_t mask1 = inb(PICMASTER_DATA); off
     // uint8_t mask2 = inb(PICSLAVE_DATA); off
