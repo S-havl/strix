@@ -37,8 +37,9 @@ void init_physical_memory_map(void)
 
     inspect_e820_map_entries(e820_map, e820_count);
 
-    uint64_t total_ram_bytes = 0;
-    uint64_t total_ram_pages = 0;
+    uint64_t total_ram_bytes   = 0;
+    uint64_t total_ram_pages   = 0;
+    uint64_t total_bitmap_size = 0;
 
     for (size_t i = 0; i < *e820_count; i++) {
         if (is_memory_usable((acpi_memory_type_t)e820_map[i].type)) {
@@ -47,7 +48,14 @@ void init_physical_memory_map(void)
         }
     }
 
+    total_bitmap_size = (total_ram_pages + 7) / 8;
+
+    kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, "TRB: ");
     kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, total_ram_bytes);
-    kprintf(COLOR_MAGENTA, COLOR_BLACK, " ");
+
+    kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " TRP: ");
     kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, total_ram_pages);
+
+    kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " TBS: ");
+    kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, total_bitmap_size);
 }
