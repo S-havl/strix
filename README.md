@@ -14,9 +14,9 @@ The goal of the project is to explore low-level system development by implementi
 This repository contains the early development of the system including the bootloader, kernel core, basic drivers, filesystem foundations, and supporting libraries.
 
 <p align="center">
-  <img src="images/inspection_e820_bitmap.png" alt="inspection e820 bitmap" width="50%">
+  <img src="images/inspection_e820_bitmap.png" alt="inspection e820 bitmap" width="49%">
   &nbsp;
-  <img src="images/handlers-vga-test.png" alt="exception and interrupt handlers" width="50%">
+  <img src="images/handlers-vga-test.png" alt="exception and interrupt handlers" width="49%">
 </p>
 
 # Current Status
