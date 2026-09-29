@@ -3,6 +3,12 @@
 
 #include <stddef.h>
 
+#define BIT_FREE 0
+#define BIT_USED 1
+
+#define BYTE_FREE 0x00
+#define BYTE_USED 0xFF
+
 extern uint8_t  _kernel_end[];
 static uint8_t* pmm_bitmap = NULL;
 
@@ -10,6 +16,10 @@ static const uint16_t*     e820_count = (uint16_t*)E820_COUNT_ADDRESS;
 static const e820_entry_t* e820_map   = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
 
 static inline bool is_memory_usable(acpi_memory_type_t type) { return type == ACPI_MEM_USABLE; }
+
+static void pmm_lock_page(void) {}
+
+static void pmm_lock_region(void) {}
 
 static void inspect_e820_map_entries(const e820_entry_t* map, const uint16_t* count)
 {
@@ -49,6 +59,10 @@ void init_physical_memory_map(void)
     }
 
     total_bitmap_size = (total_ram_pages + 7) / 8;
+
+    for (size_t i = 0; i < total_bitmap_size; i++) {
+        pmm_bitmap[i] = BYTE_FREE;
+    }
 
     kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, "TRB: ");
     kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, total_ram_bytes);
