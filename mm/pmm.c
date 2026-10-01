@@ -17,9 +17,25 @@ static const e820_entry_t* e820_map   = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
 
 static inline bool is_memory_usable(acpi_memory_type_t type) { return type == ACPI_MEM_USABLE; }
 
-static void pmm_lock_page(void) {}
+static void pmm_lock_page(size_t page_number)
+{
+    size_t byte_index = page_number / 8;
+    size_t bit_index  = page_number % 8;
 
-static void pmm_lock_region(void) {}
+    pmm_bitmap[byte_index] |= (1 << bit_index);
+}
+
+static void pmm_lock_region(uint64_t start_addr, uint64_t length)
+{
+    size_t start_page = start_addr / PAGE_SIZE;
+    size_t end_page   = (start_addr + length) / PAGE_SIZE;
+
+    for (size_t page = start_page; page < end_page; page++) {
+        pmm_lock_page(page);
+    }
+}
+
+static uint64_t pmm_alloc_page(void) { return 0; }
 
 static void inspect_e820_map_entries(const e820_entry_t* map, const uint16_t* count)
 {
