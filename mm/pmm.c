@@ -12,6 +12,9 @@
 extern uint8_t  _kernel_end[];
 static uint8_t* pmm_bitmap = NULL;
 
+static size_t total_ram_pages   = 0;
+static size_t total_bitmap_size = 0;
+
 static const uint16_t*     e820_count = (uint16_t*)E820_COUNT_ADDRESS;
 static const e820_entry_t* e820_map   = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
 
@@ -19,8 +22,16 @@ static inline bool is_memory_usable(acpi_memory_type_t type) { return type == AC
 
 static void pmm_lock_page(size_t page_number)
 {
+    if (page_number >= total_ram_pages) {
+        return;
+    }
+
     size_t byte_index = page_number / 8;
     size_t bit_index  = page_number % 8;
+
+    if (byte_index >= total_bitmap_size) {
+        return;
+    }
 
     pmm_bitmap[byte_index] |= (1 << bit_index);
 }
@@ -63,9 +74,7 @@ void init_physical_memory_map(void)
 
     inspect_e820_map_entries(e820_map, e820_count);
 
-    uint64_t total_ram_bytes   = 0;
-    uint64_t total_ram_pages   = 0;
-    uint64_t total_bitmap_size = 0;
+    uint64_t total_ram_bytes = 0;
 
     for (size_t i = 0; i < *e820_count; i++) {
         if (is_memory_usable((acpi_memory_type_t)e820_map[i].type)) {
@@ -78,6 +87,18 @@ void init_physical_memory_map(void)
 
     for (size_t i = 0; i < total_bitmap_size; i++) {
         pmm_bitmap[i] = BYTE_FREE;
+    }
+
+    uint64_t kernel_start_addr   = KERNEL_START_ADDR;
+    uint64_t bitmap_end_addr     = (uint64_t)pmm_bitmap + total_bitmap_size;
+    uint64_t dynamic_kernel_size = bitmap_end_addr - kernel_start_addr;
+
+    pmm_lock_region(kernel_start_addr, dynamic_kernel_size);
+
+    for (size_t i = 0; i < *e820_count; i++) {
+        if (e820_map[i].type != ACPI_MEM_USABLE) {
+            pmm_lock_region(e820_map[i].base_addr, e820_map[i].length);
+        }
     }
 
     kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, "TRB: ");
