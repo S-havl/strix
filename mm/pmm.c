@@ -46,7 +46,33 @@ static void pmm_lock_region(uint64_t start_addr, uint64_t length)
     }
 }
 
-static uint64_t pmm_alloc_page(void) { return 0; }
+static uint64_t pmm_alloc_page(void)
+{
+    for (size_t bitmap_byte_index = 0; bitmap_byte_index < total_bitmap_size; bitmap_byte_index++) {
+        if (pmm_bitmap[bitmap_byte_index] == BYTE_USED) {
+            continue;
+        }
+
+        for (size_t bit_offset = 0; bit_offset < 8; bit_offset++) {
+            size_t global_page_index = (bitmap_byte_index * 8) + bit_offset;
+
+            if (global_page_index >= total_ram_pages) {
+                return (uint64_t)-1;
+            }
+
+            if (((pmm_bitmap[bitmap_byte_index] >> bit_offset) & 1) == BIT_FREE) {
+                pmm_bitmap[bitmap_byte_index] |= (BIT_USED << bit_offset);
+
+                uint64_t free_page_physical_address = (uint64_t)global_page_index * PAGE_SIZE;
+                return free_page_physical_address;
+            }
+        }
+    }
+
+    return (uint64_t)-1;
+}
+
+static void pmm_free_page(void) {}
 
 static void inspect_e820_map_entries(const e820_entry_t* map, const uint16_t* count)
 {
