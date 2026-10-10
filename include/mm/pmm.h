@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define KERNEL_START_ADDR 0x100000;
+#define KERNEL_START_ADDR 0x100000
 #define PAGE_SIZE 4096
 #define E820_COUNT_ADDRESS 0x6002
 #define E820_ENTRY_MAP_ADDRESS 0x6004
