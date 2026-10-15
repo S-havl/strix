@@ -157,4 +157,20 @@ void init_physical_memory_map(void)
 
     kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " TBS: ");
     kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, total_bitmap_size);
+
+    /*---------- PMM: ALLOC AND FREE TEST  ----------*/
+    uint64_t page_free_address1 = pmm_alloc_page();
+    kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, page_free_address1);
+
+    uint64_t page_free_address2 = pmm_alloc_page();
+    kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " ");
+    kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, page_free_address2);
+
+    uint64_t page_free_address3 = pmm_alloc_page();
+    kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, " ");
+    kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, page_free_address3);
+
+    pmm_free_page(page_free_address1);
+    pmm_free_page(page_free_address2);
+    pmm_free_page(page_free_address3);
 }
