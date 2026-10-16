@@ -32,4 +32,4 @@ typedef enum {
 
 #define ACPI_MEM_OEM_DEFINED_HIGH 0xF0000000 // to 0xFFFFFFFF
 
-void init_physical_memory_map(void);
+void init_physical_memory_manager(void);

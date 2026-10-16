@@ -3,6 +3,7 @@
 #include <arch/x86_64/interrupts/pic.h>
 #include <kernel/core/interrupt.h>
 #include <mm/pmm.h>
+#include <mm/vmm.h>
 
 // #include <drivers/timer/pit.h>
 // #include <drivers/input/keyboard.h>
@@ -25,8 +26,13 @@ void kernel_init(void)
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] TSS initialized.\n");
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] CS reloaded.\n");
 
-    init_physical_memory_map();
-    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Physical Memory Map initialized.\n");
+    init_physical_memory_manager();
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Physical Memory Manager initialized.\n");
+
+    /*
+    init_virtual_memory_manager();
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Virtual Memory Manager initialized\n");
+    */
 
     idt_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT initialized.\n");
