@@ -107,7 +107,7 @@ static void inspect_e820_map_entries(const e820_entry_t* map, const uint16_t* co
     }
 }
 
-void init_physical_memory_map(void)
+void init_physical_memory_manager(void)
 {
     pmm_bitmap = (uint8_t*)_kernel_end;
 
