@@ -31,4 +31,12 @@ _Static_assert(sizeof(page_directory_t) == PAGE_SIZE, "PD must be 4096 bytes in 
 _Static_assert(sizeof(page_dir_pointer_table_t) == PAGE_SIZE, "PDPT must be 4096 bytes in size");
 _Static_assert(sizeof(pml4_table_t) == PAGE_SIZE, "PML4 must be 4096 bytes in size");
 
+static void vmm_map(void) {}
+
+static void vmm_unmap(void) {}
+
+static void vmm_context_switch(void) {}
+
+static void vmm_flush_tlb(void) {}
+
 void init_virtual_memory_manager(void) {}
