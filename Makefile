@@ -31,7 +31,8 @@ arch/x86_64/interrupts/idt.c \
 drivers/video/vga/vga.c \
 libk/src/kprintf.c \
 arch/x86_64/interrupts/pic.c \
-mm/pmm.c
+mm/pmm.c \
+mm/vmm.c
 
 # Kernel ASM files (interrupts)
 ASM_SRC = $(wildcard arch/x86_64/interrupts/*.asm)
