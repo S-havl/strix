@@ -47,6 +47,16 @@ static pml4_table_t             pml4;
 static void vmm_map(const uint64_t virtual_memory_address, const uint64_t physical_memory_address,
                     const uint64_t flags)
 {
+    uint64_t virtual_address_pml4_index = (virtual_memory_address >> 39) & 0x1FFULL;
+    uint64_t virtual_address_pdpt_index = (virtual_memory_address >> 30) & 0x1FFULL;
+    uint64_t virtual_address_pd_index   = (virtual_memory_address >> 21) & 0x1FFULL;
+    uint64_t virtual_address_pt_index   = (virtual_memory_address >> 12) & 0x1FFULL;
+    uint64_t virtual_address_offset     = (virtual_memory_address >> 0) & 0xFFFULL;
+
+    uint64_t select_entry_pml4 = pml4.entries[virtual_address_pml4_index];
+    uint64_t select_entry_pdpt = pdpt.entries[virtual_address_pdpt_index];
+    uint64_t select_entry_pd   = pd.entries[virtual_address_pd_index];
+    uint64_t select_entry_pt   = pt.entries[virtual_address_pt_index];
 }
 
 static void vmm_unmap(void) {}
