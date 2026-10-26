@@ -46,7 +46,7 @@ static void pmm_lock_region(uint64_t start_addr, uint64_t length)
     }
 }
 
-static uint64_t pmm_alloc_page(void)
+uint64_t pmm_alloc_page(void)
 {
     for (size_t bitmap_byte_index = 0; bitmap_byte_index < total_bitmap_size; bitmap_byte_index++) {
         if (pmm_bitmap[bitmap_byte_index] == BYTE_USED) {

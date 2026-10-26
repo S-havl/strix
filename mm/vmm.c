@@ -18,6 +18,9 @@ typedef uint64_t pt_entry_t;
 #define PAGE_LEVEL_CACHE_DISABLE (1ULL << 4)
 #define PAGE_NO_EXECUTE_EXECUTE_DISABLE (1ULL << 63)
 
+#define ON_BIT 1
+#define OFF_BIT 0
+
 typedef struct PAGE_ALIGNED {
     pt_entry_t entries[ENTRIES_PER_TABLE];
 } page_table_t;
@@ -53,10 +56,58 @@ static void vmm_map(const uint64_t virtual_memory_address, const uint64_t physic
     uint64_t virtual_address_pt_index   = (virtual_memory_address >> 12) & 0x1FFULL;
     uint64_t virtual_address_offset     = (virtual_memory_address >> 0) & 0xFFFULL;
 
-    uint64_t select_entry_pml4 = pml4.entries[virtual_address_pml4_index];
-    uint64_t select_entry_pdpt = pdpt.entries[virtual_address_pdpt_index];
-    uint64_t select_entry_pd   = pd.entries[virtual_address_pd_index];
-    uint64_t select_entry_pt   = pt.entries[virtual_address_pt_index];
+    uint64_t           pml4_entry = pml4.entries[virtual_address_pml4_index];
+    volatile uint64_t* ptr_new_pdpt_physical_address;
+
+    if (!(pml4_entry & PAGE_PRESENT)) {
+        uint64_t new_pdpt_physical_address = pmm_alloc_page();
+        ptr_new_pdpt_physical_address      = (volatile uint64_t*)new_pdpt_physical_address;
+
+        for (size_t i = 0; i < 512; i++) {
+            ptr_new_pdpt_physical_address[i] = 0x00ULL;
+        }
+
+        pml4.entries[virtual_address_pml4_index] =
+            new_pdpt_physical_address | PAGE_PRESENT | PAGE_READ_WRITE;
+    } else {
+        ptr_new_pdpt_physical_address = (volatile uint64_t*)(pml4_entry & 0xFFFFFFFFFFFFF000ULL);
+    }
+
+    uint64_t           pdpt_entry = ptr_new_pdpt_physical_address[virtual_address_pdpt_index];
+    volatile uint64_t* ptr_new_pd_physical_address;
+
+    if (!(pdpt_entry & PAGE_PRESENT)) {
+        uint64_t new_pd_physical_address = pmm_alloc_page();
+        ptr_new_pd_physical_address      = (volatile uint64_t*)new_pd_physical_address;
+
+        for (size_t i = 0; i < 512; i++) {
+            ptr_new_pd_physical_address[i] = 0x00ULL;
+        }
+
+        ptr_new_pdpt_physical_address[virtual_address_pdpt_index] =
+            new_pd_physical_address | PAGE_PRESENT | PAGE_READ_WRITE;
+    } else {
+        ptr_new_pd_physical_address = (volatile uint64_t*)(pdpt_entry & 0xFFFFFFFFFFFFF000ULL);
+    }
+
+    uint64_t           pd_entry = ptr_new_pd_physical_address[virtual_address_pd_index];
+    volatile uint64_t* ptr_new_pt_physical_address;
+
+    if (!(pd_entry & PAGE_PRESENT)) {
+        uint64_t new_pt_physical_address = pmm_alloc_page();
+        ptr_new_pt_physical_address      = (volatile uint64_t*)new_pt_physical_address;
+
+        for (size_t i = 0; i < 512; i++) {
+            ptr_new_pt_physical_address[i] = 0x00ULL;
+        }
+
+        ptr_new_pd_physical_address[virtual_address_pd_index] =
+            new_pt_physical_address | PAGE_PRESENT | PAGE_READ_WRITE;
+    } else {
+        ptr_new_pt_physical_address = (volatile uint64_t*)(pd_entry & 0xFFFFFFFFFFFFF000ULL);
+    }
+
+    ptr_new_pt_physical_address[virtual_address_pt_index] = physical_memory_address | flags;
 }
 
 static void vmm_unmap(void) {}
