@@ -72,7 +72,7 @@ uint64_t pmm_alloc_page(void)
     return (uint64_t)-1;
 }
 
-static void pmm_free_page(uint64_t used_page_address)
+void pmm_free_page(uint64_t used_page_address)
 {
     uint64_t frame = used_page_address / PAGE_SIZE;
 
