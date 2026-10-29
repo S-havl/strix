@@ -32,5 +32,6 @@ typedef enum {
 
 #define ACPI_MEM_OEM_DEFINED_HIGH 0xF0000000 // to 0xFFFFFFFF
 
-void init_physical_memory_manager(void);
-void pmm_alloc_page(void);
+void     init_physical_memory_manager(void);
+uint64_t pmm_alloc_page(void);
+void     pmm_free_page(uint64_t used_page_address);
