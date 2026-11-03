@@ -147,11 +147,16 @@ static void vmm_unmap(const uint64_t virtual_memory_address)
     vmm_flush_tlb(virtual_memory_address);
 }
 
-static void vmm_context_switch(void) {}
-
 static void vmm_flush_tlb(const uint64_t virtual_memory_address)
 {
     __asm__ __volatile__("invlpg (%0)" : : "r"(virtual_memory_address) : "memory");
 }
+
+static void cr3_register_reload(const uint64_t pml4_physical_memory_address)
+{
+    __asm__ __volatile__("mov %0, %%cr3" : : "r"(pml4_physical_memory_address) : "memory");
+}
+
+static void vmm_context_switch(void) {}
 
 void init_virtual_memory_manager(void) {}
