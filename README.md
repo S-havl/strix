@@ -25,7 +25,7 @@ The project is in an early stage of development.
 
 At the moment the kernel boots successfully and executes code in the kernel entry point.
 
-Example kernel output:
+Kernel output:
 
 ```
 [INFO] Starting kernel...
@@ -37,7 +37,8 @@ Example kernel output:
 [ OK ] GDT initialized.
 [ OK ] TSS initialized.
 [ OK ] CS reloaded.
-[ OK ] Physical Memory Map initialized.
+[ OK ] Physical Memory Manager initialized.
+[ OK ] Virtual Memory Manager initialized.
 [ OK ] IDT initialized.
 [ OK ] IDT HANDLERS initialized.
 [ OK ] PIC initialized and remapped.

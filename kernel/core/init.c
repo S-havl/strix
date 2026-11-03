@@ -29,10 +29,8 @@ void kernel_init(void)
     init_physical_memory_manager();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Physical Memory Manager initialized.\n");
 
-    /*
     init_virtual_memory_manager();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Virtual Memory Manager initialized\n");
-    */
 
     idt_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT initialized.\n");
