@@ -53,7 +53,7 @@ static void vmm_map(const uint64_t virtual_memory_address, const uint64_t physic
     uint64_t virtual_address_pdpt_index = (virtual_memory_address >> 30) & 0x1FFULL;
     uint64_t virtual_address_pd_index   = (virtual_memory_address >> 21) & 0x1FFULL;
     uint64_t virtual_address_pt_index   = (virtual_memory_address >> 12) & 0x1FFULL;
-    uint64_t virtual_address_offset     = (virtual_memory_address >> 0) & 0xFFFULL;
+    // uint64_t virtual_address_offset     = (virtual_memory_address >> 0) & 0xFFFULL;
 
     uint64_t           pml4_entry = pml4.entries[virtual_address_pml4_index];
     volatile uint64_t* ptr_new_pdpt_physical_address;
@@ -159,4 +159,19 @@ static void cr3_register_reload(const uint64_t pml4_physical_memory_address)
 
 static void vmm_context_switch(void) {}
 
-void init_virtual_memory_manager(void) {}
+void init_virtual_memory_manager(void)
+{
+    for (size_t i = 0; i < ENTRIES_PER_TABLE; i++) {
+        pml4.entries[i] = 0x00ULL;
+    }
+
+    // maping 0 - 20 mb
+    for (uint64_t addr = 0; addr < 0x1400000; addr += 0x1000) {
+        vmm_map(addr, addr, PAGE_PRESENT | PAGE_READ_WRITE);
+    }
+
+    uint64_t pml4_physical_memory_address = (uint64_t)&pml4;
+
+    // pml4 switch
+    cr3_register_reload(pml4_physical_memory_address);
+}
