@@ -101,8 +101,15 @@ static void general_protection_handler(interrupt_frame_t* frame)
 
 static void page_fault_handler(interrupt_frame_t* frame)
 {
+    uint64_t faulting_virtual_memory_address;
+
+    __asm__ __volatile__("movq %%cr2, %0" : "=r"(faulting_virtual_memory_address) : :);
+
     kprintf(COLOR_YELLOW, COLOR_RED, "#PF\n");
-    __asm__ volatile("cli; hlt");
+    kprintf(COLOR_YELLOW, COLOR_RED, "Culpable virtual address: ");
+    kprintf_hex64(COLOR_YELLOW, COLOR_RED, faulting_virtual_memory_address);
+
+    __asm__ __volatile__("cli; hlt");
 }
 
 static void intel_reserved_do_not_use_handler(interrupt_frame_t* frame)
