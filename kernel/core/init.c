@@ -41,6 +41,9 @@ void kernel_init(void)
     pic_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] PIC initialized and remapped.\n");
 
+    volatile uint64_t* bad_ptr_test = (volatile uint64_t*)0x40000000;
+    *bad_ptr_test                   = 0x0DFABBEE;
+
     // pit_init();
     // kprintf("[INFO] PIT initialized\n");
 
