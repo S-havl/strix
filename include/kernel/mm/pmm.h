@@ -35,3 +35,4 @@ typedef enum {
 void     init_physical_memory_manager(void);
 uint64_t pmm_alloc_page(void);
 void     pmm_free_page(uint64_t used_page_address);
+uint64_t pmm_get_bitmap_end_addr(void);

@@ -2,8 +2,9 @@
 #include <arch/x86_64/interrupts/idt.h>
 #include <arch/x86_64/interrupts/pic.h>
 #include <kernel/core/interrupt.h>
-#include <mm/pmm.h>
-#include <mm/vmm.h>
+#include <kernel/mm/heap.h>
+#include <kernel/mm/pmm.h>
+#include <kernel/mm/vmm.h>
 
 // #include <drivers/timer/pit.h>
 // #include <drivers/input/keyboard.h>
@@ -41,8 +42,8 @@ void kernel_init(void)
     pic_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] PIC initialized and remapped.\n");
 
-    volatile uint64_t* bad_ptr_test = (volatile uint64_t*)0x40000000;
-    *bad_ptr_test                   = 0x0DFABBEE;
+    // heap_init();
+    // kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] HEAP initialized.\n");
 
     // pit_init();
     // kprintf("[INFO] PIT initialized\n");
