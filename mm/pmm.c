@@ -1,5 +1,5 @@
-#include <kernel/mm/pmm.h>
 #include <kprintf.h>
+#include <mm/pmm.h>
 
 #include <stddef.h>
 
@@ -17,9 +17,9 @@ static size_t total_bitmap_size = 0;
 
 static uint64_t kernel_start_addr;
 static uint64_t bitmap_end_addr;
-static uint64_t dynamic_kernel_size
+static uint64_t dynamic_kernel_size;
 
-    static const uint16_t* e820_count = (uint16_t*)E820_COUNT_ADDRESS;
+static const uint16_t*     e820_count = (uint16_t*)E820_COUNT_ADDRESS;
 static const e820_entry_t* e820_map   = (e820_entry_t*)E820_ENTRY_MAP_ADDRESS;
 
 static inline bool is_memory_usable(acpi_memory_type_t type) { return type == ACPI_MEM_USABLE; }
