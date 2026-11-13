@@ -2,9 +2,9 @@
 #include <arch/x86_64/interrupts/idt.h>
 #include <arch/x86_64/interrupts/pic.h>
 #include <kernel/core/interrupt.h>
-#include <kernel/mm/heap.h>
-#include <kernel/mm/pmm.h>
-#include <kernel/mm/vmm.h>
+#include <mm/heap.h>
+#include <mm/pmm.h>
+#include <mm/vmm.h>
 
 // #include <drivers/timer/pit.h>
 // #include <drivers/input/keyboard.h>

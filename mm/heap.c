@@ -1,6 +1,6 @@
-#include <kernel/mm/heap.h>
-#include <kernel/mm/pmm.h>
-#include <kernel/mm/vmm.h>
+#include <mm/heap.h>
+#include <mm/pmm.h>
+#include <mm/vmm.h>
 
 #include <stddef.h>
 #include <stdint.h>
@@ -17,9 +17,9 @@ typedef struct block {
 } block_t;
 #pragma pack(pop)
 
-void* kmalloc(void) {}
+void* kmalloc(void);
 
-void kfree(void) {}
+void kfree(void);
 
 void heap_init(void)
 {

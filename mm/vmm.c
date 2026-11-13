@@ -1,6 +1,6 @@
-#include <kernel/mm/pmm.h>
-#include <kernel/mm/vmm.h>
 #include <kprintf.h>
+#include <mm/pmm.h>
+#include <mm/vmm.h>
 
 #include <stddef.h>
 
