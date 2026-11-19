@@ -5,27 +5,25 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#pragma pack(push, 1)
 typedef struct block_header {
     uint64_t block_size;
     uint8_t  is_free;
 } block_header_t;
 
-typedef struct block {
+typedef struct __attribute__((aligned(16))) block {
     block_header_t header;
     struct block*  next_block;
 } block_t;
-#pragma pack(pop)
 
 static block_t* head_block = NULL;
 
 void* kmalloc(size_t size)
 {
-    size = (size + 7) & ~7;
-
     if (size == 0) {
         return NULL;
     }
+
+    size = (size + 15) & ~((size_t)15);
 
     block_t* current_block = head_block;
 
@@ -54,7 +52,24 @@ void* kmalloc(size_t size)
     return NULL;
 }
 
-void kfree(void* ptr);
+void kfree(void* ptr)
+{
+    if (ptr == NULL) {
+        return;
+    }
+
+    block_t* header_ptr_block        = (block_t*)((uint8_t*)ptr - sizeof(block_t));
+    header_ptr_block->header.is_free = 1;
+
+    while (header_ptr_block->next_block != NULL &&
+           header_ptr_block->next_block->header.is_free == 1) {
+        block_t* next_ptr_block = header_ptr_block->next_block;
+
+        header_ptr_block->header.block_size += next_ptr_block->header.block_size + sizeof(block_t);
+
+        header_ptr_block->next_block = next_ptr_block->next_block;
+    }
+}
 
 void heap_init(void)
 {
