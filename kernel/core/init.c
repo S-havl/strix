@@ -42,8 +42,20 @@ void kernel_init(void)
     pic_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] PIC initialized and remapped.\n");
 
-    // heap_init();
-    // kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] HEAP initialized.\n");
+    heap_init();
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] HEAP initialized.\n");
+
+    uint64_t* data = (uint64_t*)kmalloc(64);
+    *data          = 0x1234567891011211ULL;
+    kprintf_hex64(COLOR_WHITE, COLOR_BLACK, (uint64_t)(uintptr_t)data);
+    kprintf_hex64(COLOR_LIGHT_GREEN, COLOR_BLACK, *data);
+    kfree(data);
+
+    uint64_t* reused = (uint64_t*)kmalloc(64);
+    *reused          = 0xAABBCCDDEEFF0011ULL;
+    kprintf_hex64(COLOR_WHITE, COLOR_BLACK, (uint64_t)(uintptr_t)reused);
+    kprintf_hex64(COLOR_LIGHT_GREEN, COLOR_BLACK, *reused);
+    kfree(reused);
 
     // pit_init();
     // kprintf("[INFO] PIT initialized\n");
