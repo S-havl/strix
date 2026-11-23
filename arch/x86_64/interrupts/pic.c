@@ -57,6 +57,6 @@ void pic_init(void)
     outb(PICSLAVE_DATA, ICW4_8086);
     io_wait();
 
-    outb(PICMASTER_DATA, 0xFF); // off = mask1
+    outb(PICMASTER_DATA, 0xFD); // off = mask1
     outb(PICSLAVE_DATA, 0xFF);  // off = mask2
 }
