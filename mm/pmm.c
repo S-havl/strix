@@ -1,4 +1,5 @@
 #include <kprintf.h>
+#include <mm/heap.h>
 #include <mm/pmm.h>
 
 #include <stddef.h>
@@ -42,8 +43,12 @@ static void pmm_lock_page(size_t page_number)
     pmm_bitmap[byte_index] |= (1 << bit_index);
 }
 
-static void pmm_lock_region(uint64_t start_addr, uint64_t length)
+void pmm_lock_region(uint64_t start_addr, uint64_t length)
 {
+    if (length == 0) {
+        return;
+    }
+
     size_t start_page = start_addr / PAGE_SIZE;
     size_t end_page   = (start_addr + length + PAGE_SIZE - 1) / PAGE_SIZE;
 
@@ -154,6 +159,8 @@ void init_physical_memory_manager(void)
     }
 
     pmm_lock_region(0, KERNEL_START_ADDR);
+
+    pmm_lock_region(heap_get_start_addr(), HEAP_INITIAL_SIZE);
 
     kprintf(COLOR_LIGHT_MAGENTA, COLOR_BLACK, "TRB: ");
     kprintf_hex64(COLOR_LIGHT_BLUE, COLOR_BLACK, total_ram_bytes);

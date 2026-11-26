@@ -239,6 +239,38 @@ setup_long_mode:
 	mov	[edi+56], eax
 	mov	dword [edi+60], 0
 
+	mov	eax, 0x01000083   ; 16–18MB
+	mov	[edi+64], eax
+	mov	dword [edi+68], 0
+
+	mov	eax, 0x01200083   ; 18–20MB
+	mov	[edi+72], eax
+	mov	dword [edi+76], 0
+
+	mov	eax, 0x01400083   ; 20–22MB
+	mov	[edi+80], eax
+	mov	dword [edi+84], 0
+
+	mov	eax, 0x01600083   ; 22–24MB
+	mov	[edi+88], eax
+	mov	dword [edi+92], 0
+
+	mov	eax, 0x01800083   ; 24–26MB
+	mov	[edi+96], eax
+	mov	dword [edi+100], 0
+
+	mov	eax, 0x01A00083   ; 26–28MB
+	mov	[edi+104], eax
+	mov	dword [edi+108], 0
+
+	mov	eax, 0x01C00083   ; 28–30MB
+	mov	[edi+112], eax
+	mov	dword [edi+116], 0
+
+	mov	eax, 0x01E00083   ; 30–32MB
+	mov	[edi+120], eax
+	mov	dword [edi+124], 0
+
 	mov	edi, 0x5000
 	
 	mov	dword [edi], 0

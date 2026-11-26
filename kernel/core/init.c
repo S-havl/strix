@@ -27,17 +27,17 @@ void kernel_init(void)
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] TSS initialized.\n");
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] CS reloaded.\n");
 
-    init_physical_memory_manager();
-    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Physical Memory Manager initialized.\n");
-
-    init_virtual_memory_manager();
-    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Virtual Memory Manager initialized\n");
-
     idt_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT initialized.\n");
 
     interrupt_handlers_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] IDT HANDLERS initialized.\n");
+
+    init_physical_memory_manager();
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Physical Memory Manager initialized.\n");
+
+    init_virtual_memory_manager();
+    kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] Virtual Memory Manager initialized\n");
 
     pic_init();
     kprintf(COLOR_LIGHT_GREEN, COLOR_BLACK, "[ OK ] PIC initialized and remapped.\n");
