@@ -5,6 +5,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <kprintf.h>
+
 typedef struct block_header {
     uint64_t block_size;
     uint8_t  is_free;
@@ -71,15 +73,18 @@ void kfree(void* ptr)
     }
 }
 
-void heap_init(void)
+uint64_t heap_get_start_addr(void)
 {
     uint64_t bitmap_end_addr = pmm_get_bitmap_end_addr();
-    uint64_t heap_start_addr = (bitmap_end_addr + 0xFFF) & ~0xFFF;
+    return (bitmap_end_addr + (PAGE_SIZE - 1ULL)) & ~((uint64_t)(PAGE_SIZE - 1ULL));
+}
 
-    head_block                 = (block_t*)heap_start_addr;
-    uint64_t initial_heap_size = 16 * 1024 * 1024;
+void heap_init(void)
+{
+    uint64_t heap_start_addr = heap_get_start_addr();
 
-    head_block->header.block_size = initial_heap_size - sizeof(block_t);
+    head_block                    = (block_t*)(uintptr_t)heap_start_addr;
+    head_block->header.block_size = HEAP_INITIAL_SIZE - sizeof(block_t);
     head_block->header.is_free    = 1;
     head_block->next_block        = NULL;
 }

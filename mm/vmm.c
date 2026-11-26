@@ -165,8 +165,8 @@ void init_virtual_memory_manager(void)
         pml4.entries[i] = 0x00ULL;
     }
 
-    // maping 0 - 20 mb
-    for (uint64_t addr = 0; addr < 0x1400000; addr += 0x1000) {
+    // maping 0 - 50 mb
+    for (uint64_t addr = 0; addr < 0x3200000; addr += 0x1000) {
         vmm_map(addr, addr, PAGE_PRESENT | PAGE_READ_WRITE);
     }
 
