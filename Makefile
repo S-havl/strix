@@ -29,7 +29,7 @@ arch/x86_64/cpu/tss.c \
 arch/x86_64/cpu/tss_flush.c \
 arch/x86_64/interrupts/idt.c \
 drivers/video/vga/vga.c \
-libk/src/kprintf.c \
+libk/kprintf.c \
 arch/x86_64/interrupts/pic.c \
 mm/pmm.c \
 mm/vmm.c \
@@ -54,7 +54,7 @@ KERNEL_ELF = $(BUILD)/kernel/kernel.elf
 # -------------------------------
 CFLAGS = -Wall -Wextra -Werror -Wpedantic -std=gnu11 -Wno-unused-parameter -Wno-unused-function -g -ffreestanding -nostdlib -mno-red-zone -mcmodel=kernel \
          -fno-pic -fno-pie -no-pie \
-         -Iinclude -Iinclude/arch/x86_64 -Ilibk/include
+         -Iinclude -Iinclude/arch/x86_64
 
 .PHONY: all format run gdb-64 gdb-32 gdb-16 clean
 

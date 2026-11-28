@@ -1,7 +1,7 @@
 #include <arch/x86_64/interrupts/interrupt_frame.h>
 #include <kernel/core/interrupt.h>
 
-#include <kprintf.h>
+#include <libk/kprintf.h>
 #include <stddef.h>
 #include <stdint.h>
 
