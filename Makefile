@@ -8,7 +8,7 @@ CC   = x86_64-elf-gcc
 # Build folders
 # -------------------------------
 BUILD = build
-IMG   = $(BUILD)/disk.img
+IMG   = $(BUILD)/strix.img
 
 # -------------------------------
 # Source files
