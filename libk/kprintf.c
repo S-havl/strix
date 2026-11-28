@@ -1,5 +1,6 @@
-#include "kprintf.h"
 #include <drivers/video/vga/vga.h>
+#include <libk/kprintf.h>
+
 #include <stddef.h>
 #include <stdint.h>
 

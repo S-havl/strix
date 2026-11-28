@@ -1,4 +1,4 @@
-#include <kprintf.h>
+#include <libk/kprintf.h>
 #include <mm/pmm.h>
 #include <mm/vmm.h>
 

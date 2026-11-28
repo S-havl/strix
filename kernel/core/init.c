@@ -9,7 +9,7 @@
 // #include <drivers/timer/pit.h>
 // #include <drivers/input/keyboard.h>
 
-#include <kprintf.h>
+#include <libk/kprintf.h>
 
 void kernel_init(void)
 {

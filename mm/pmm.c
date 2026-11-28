@@ -1,4 +1,4 @@
-#include <kprintf.h>
+#include <libk/kprintf.h>
 #include <mm/heap.h>
 #include <mm/pmm.h>
 
